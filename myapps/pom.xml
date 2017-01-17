@@ -1,0 +1,88 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>vip.zhaoguotao</groupId>
+  <artifactId>myapps</artifactId>
+  <packaging>war</packaging>
+  <version>1.0</version>
+  <name>myapps Maven Webapp</name>
+  <url>http://maven.apache.org</url>
+  <dependencies>
+	    <dependency>
+	      <groupId>junit</groupId>
+	      <artifactId>junit</artifactId>
+	      <version>3.8.1</version>
+	      <scope>test</scope>
+	    </dependency>
+ 	   <!-- JFinal -->
+	<dependency>
+		<groupId>com.jfinal</groupId>
+		<artifactId>jfinal</artifactId>
+		<version>2.1</version>
+	</dependency>
+
+	<dependency>
+		<groupId>com.jfinal</groupId>
+		<artifactId>jfinal-ext</artifactId>
+		<version>3.1.4</version>
+	</dependency>
+
+	<!-- DB pools -->
+	<dependency>
+		<groupId>org.apache.commons</groupId>
+		<artifactId>commons-dbcp2</artifactId>
+		<version>2.0.1</version>
+	</dependency>
+
+	<!-- json -->
+	<dependency>
+		<groupId>com.alibaba</groupId>
+		<artifactId>fastjson</artifactId>
+		<version>1.1.39</version>
+	</dependency>
+
+	<dependency>
+		<groupId>com.google.code.gson</groupId>
+		<artifactId>gson</artifactId>
+		<version>2.2.4</version>
+	</dependency>
+
+	<!-- log4j -->
+	<dependency>
+		<groupId>log4j</groupId>
+		<artifactId>log4j</artifactId>
+		<version>1.2.9</version>
+	</dependency>
+
+	<!-- poi -->
+	<dependency>
+		<groupId>org.apache.poi</groupId>
+		<artifactId>poi-ooxml</artifactId>
+		<version>3.9</version>
+	</dependency>
+
+	<!-- servlet api -->
+	<dependency>
+		<groupId>com.jfinal</groupId>
+		<artifactId>jetty-server</artifactId>
+		<version>8.1.8</version>
+		<scope>provided</scope>
+	</dependency>
+
+	<dependency>
+		<groupId>mysql</groupId>
+		<artifactId>mysql-connector-java</artifactId>
+		<version>5.1.38</version>
+	</dependency>
+	
+	<!-- velocity api -->
+	<dependency>
+		<groupId>org.apache.velocity</groupId>
+		<artifactId>velocity</artifactId>
+		<version>1.7</version>
+	</dependency>
+  </dependencies>
+  <build>
+    <finalName>myapps</finalName>
+  </build>
+</project>
