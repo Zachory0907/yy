@@ -6,14 +6,23 @@ import com.jfinal.config.Interceptors;
 import com.jfinal.config.JFinalConfig;
 import com.jfinal.config.Plugins;
 import com.jfinal.config.Routes;
+import com.jfinal.ext.route.AutoBindRoutes;
+import com.jfinal.kit.PropKit;
+import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
+import com.jfinal.plugin.activerecord.dialect.MysqlDialect;
+import com.jfinal.plugin.c3p0.C3p0Plugin;
+import com.jfinal.render.ViewType;
 
-import vip.zgt.app.test.HelloController;
+import vip.zgt.app.util.Consts;
 
 public class MyAppConfig extends JFinalConfig {
 
 	@Override
 	public void configConstant(Constants me) {
-		me.setDevMode(true);
+		PropKit.use("db.properties");
+		me.setEncoding(Consts.DEFAULT_ENCODING);
+		me.setViewType(ViewType.VELOCITY);
+		me.setVelocityViewExtension("html");
 	}
 
 	@Override
@@ -28,12 +37,18 @@ public class MyAppConfig extends JFinalConfig {
 
 	@Override
 	public void configPlugin(Plugins plugin) {
-		
+		C3p0Plugin c3p0Plugin = new C3p0Plugin(PropKit.get("jdbcUrl"),PropKit.get("user"),PropKit.get("password"), PropKit.get("driverClass"));
+		ActiveRecordPlugin arp = new ActiveRecordPlugin(c3p0Plugin);
+        arp.setShowSql(true);
+        arp.setDialect(new MysqlDialect());
+        plugin.add(c3p0Plugin);
+        plugin.add(arp);
 	}
 
 	@Override
 	public void configRoute(Routes route) {
-		route.add("/hello", HelloController.class);
+//		route.add("/hello", HelloController.class);
+		route.add(new AutoBindRoutes());
 	}
 
 }
