@@ -1,4 +1,4 @@
-package com.zgt.digital.util;
+package vip.zgt.app.util;
 
 public class Consts {
 	public static final String VIEW_PATH = "/WEB-INF/pages";

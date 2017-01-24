@@ -1,4 +1,4 @@
-package com.zgt.digital.util;
+package vip.zgt.app.util;
 
 import java.math.BigDecimal;
 import java.util.Iterator;

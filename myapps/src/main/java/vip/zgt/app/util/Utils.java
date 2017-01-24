@@ -1,4 +1,4 @@
-package com.zgt.digital.util;
+package vip.zgt.app.util;
 
 import java.io.InputStream;
 import java.util.Properties;

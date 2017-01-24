@@ -1,4 +1,4 @@
-package com.zgt.digital.util;
+package vip.zgt.app.util;
 
 public class UUID {
 	

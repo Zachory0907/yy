@@ -1,4 +1,4 @@
-package com.zgt.digital.web.filter;
+package vip.zgt.app.web.filter;
 
 import java.io.IOException;
 
@@ -9,7 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
-import com.zgt.digital.util.Consts;
+import vip.zgt.app.util.Consts;
 
 /**
  * 每一次请求的时候都会将编码进行过滤
