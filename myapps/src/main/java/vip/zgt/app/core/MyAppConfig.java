@@ -37,11 +37,15 @@ public class MyAppConfig extends JFinalConfig {
 
 	@Override
 	public void configPlugin(Plugins plugin) {
+		//jfinal的数据库连接是以插件的形式，所以
+		//1、创建实现IDataSourceProvider借口的对象
 		C3p0Plugin c3p0Plugin = new C3p0Plugin(PropKit.get("jdbcUrl"),PropKit.get("user"),PropKit.get("password"), PropKit.get("driverClass"));
+		//2、ActiveRecordPlugin
 		ActiveRecordPlugin arp = new ActiveRecordPlugin(c3p0Plugin);
         arp.setShowSql(true);
         arp.setDialect(new MysqlDialect());
-        plugin.add(c3p0Plugin);
+        c3p0Plugin.start();
+        arp.start();
         plugin.add(arp);
 	}
 
