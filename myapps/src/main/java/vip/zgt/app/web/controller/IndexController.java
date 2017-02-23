@@ -1,8 +1,11 @@
 package vip.zgt.app.web.controller;
 
+import java.util.List;
+
 import com.jfinal.core.Controller;
 import com.jfinal.ext.route.ControllerBind;
 import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.plugin.activerecord.Record;
 
 import vip.zgt.app.util.Consts;
 
@@ -10,7 +13,8 @@ import vip.zgt.app.util.Consts;
 public class IndexController extends Controller{
 
 	public void index(){
-		Db.find("select * from vote");
+		List<Record> res = Db.find("select * from test");
+		System.out.println(res.toString());
 		render("index.html");
 	}
 }
