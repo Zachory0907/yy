@@ -39,14 +39,21 @@ public class MyAppConfig extends JFinalConfig {
 	public void configPlugin(Plugins plugin) {
 		//jfinal的数据库连接是以插件的形式，所以
 		//1、创建实现IDataSourceProvider借口的对象
-		C3p0Plugin c3p0Plugin = new C3p0Plugin(PropKit.get("jdbcUrl"),PropKit.get("user"),PropKit.get("password"), PropKit.get("driverClass"));
+		C3p0Plugin c3p0Plugin_YY = new C3p0Plugin(PropKit.get("jdbcUrl_YY"),PropKit.get("user_YY"),PropKit.get("password_YY"), PropKit.get("driverClass_YY"));
+		C3p0Plugin c3p0Plugin_TEST = new C3p0Plugin(PropKit.get("jdbcUrl_TEST"),PropKit.get("user_TEST"),PropKit.get("password_TEST"), PropKit.get("driverClass_TEST"));
 		//2、ActiveRecordPlugin
-		ActiveRecordPlugin arp = new ActiveRecordPlugin(c3p0Plugin);
-        arp.setShowSql(true);
-        arp.setDialect(new MysqlDialect());
-        c3p0Plugin.start();
-        arp.start();
-        plugin.add(arp);
+		ActiveRecordPlugin arp_YY = new ActiveRecordPlugin(Consts.ARP_NAME_YY, c3p0Plugin_YY);
+		ActiveRecordPlugin arp_TEST = new ActiveRecordPlugin(Consts.ARP_NAME_TEST, c3p0Plugin_TEST);
+		arp_YY.setShowSql(true);
+		arp_TEST.setShowSql(false);
+        arp_YY.setDialect(new MysqlDialect());
+        arp_TEST.setDialect(new MysqlDialect());
+        c3p0Plugin_YY.start();
+        c3p0Plugin_TEST.start();
+        arp_YY.start();
+        arp_TEST.start();
+        plugin.add(arp_YY);
+        plugin.add(arp_TEST);
 	}
 
 	@Override
