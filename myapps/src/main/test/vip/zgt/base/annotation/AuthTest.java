@@ -4,6 +4,7 @@ import java.lang.reflect.Method;
 
 import vip.zgt.app.base.annotation.AuthAnnotation;
 
+@SuppressWarnings("rawtypes")
 public class AuthTest {
 
 	public static void main(String[] args) throws Exception {
