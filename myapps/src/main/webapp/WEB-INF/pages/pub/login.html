@@ -1,9 +1,15 @@
-<html>
-<head>
+<!DOCTYPE html>
+<html lang="zh-cn" ng-app="app" ng-controller="loginController">
 <title>Login</title>
+	<meta charset="UTF-8">
+	#include("/WEB-INF/pages/tpl/header.vm")
+ 	<script src="../js/pub/login.js"></script>
+ 	<script src="../js/ext/queue.js"></script>
+    <link href="../css/pub/login.css" rel="stylesheet">
 </head>
 <body>
 	<h3>Login</h3>
+	<div id="msg">{{msg}}</div>
 	<form action="loginCheck">
 		用户名：<input type="text"><br /> 
 		密码：<input type="password"><br />
