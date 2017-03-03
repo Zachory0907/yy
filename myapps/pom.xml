@@ -88,6 +88,7 @@
 			<artifactId>velocity</artifactId>
 			<version>1.7</version>
 		</dependency>
+		
 	</dependencies>
 	<build>
 		<finalName>myapps</finalName>

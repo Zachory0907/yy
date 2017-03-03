@@ -18,8 +18,8 @@ public class AuthInceptor implements Interceptor {
 	@Override
 	public void intercept(Invocation inv) {
 		String actionKey = inv.getActionKey();
-		String username = (String) inv.getController().getRequest().getAttribute("username");
-		if (actionKey.equals("/pub")) {
+		String username = (String) inv.getController().getSession().getAttribute("username");
+		if (actionKey.length()>=4 && actionKey.substring(0, 4).equals("/pub")) {
 			inv.invoke();
 		} else {
 			Method method = inv.getMethod();

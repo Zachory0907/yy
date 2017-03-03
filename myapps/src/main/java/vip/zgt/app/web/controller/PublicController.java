@@ -13,8 +13,8 @@ public class PublicController extends BaseController{
 	}
 	
 	public void loginCheck() {
-		System.out.println("aaa");
-		redirect("/pub/a");
+		getSession(true).setAttribute("username", "FULL");
+		renderJson("{\"status\":\"ok\"}");
 	}
 	
 	public void a () {
