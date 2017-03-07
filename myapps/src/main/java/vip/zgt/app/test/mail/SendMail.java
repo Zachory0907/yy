@@ -10,10 +10,10 @@ import javax.mail.internet.MimeMessage;
 
 public class SendMail {
 
-	public static String myEmailAccount = "15712998762@163.com";
-    public static String myEmailPassword = "";
+	public static String myEmailAccount = "vip_zgt@163.com";
+    public static String myEmailPassword = "vipzgt163";
     public static String myEmailSMTPHost = "smtp.163.com";
-    public static String receiveMailAccount = "361525718@qq.com";
+    public static String receiveMailAccount = "269505902@qq.com";
 
     public static void main(String[] args) throws Exception {
         // 1. 创建参数配置, 用于连接邮件服务器的参数配置
@@ -83,16 +83,16 @@ public class SendMail {
         MimeMessage message = new MimeMessage(session);
 
         // 2. From: 发件人
-        message.setFrom(new InternetAddress(sendMail, "ZGT.VIP 注册用户", "UTF-8"));
+        message.setFrom(new InternetAddress(sendMail, "ZGT.VIP 用户注册", "UTF-8"));
 
         // 3. To: 收件人（可以增加多个收件人、抄送、密送）
-        message.setRecipient(MimeMessage.RecipientType.TO, new InternetAddress(receiveMail, "亲爱的xx用户", "UTF-8"));
+        message.setRecipient(MimeMessage.RecipientType.TO, new InternetAddress(receiveMail, "sb陈光辉", "UTF-8"));
 
         // 4. Subject: 邮件主题
         message.setSubject("新用户注册", "UTF-8");
 
         // 5. Content: 邮件正文（可以使用html标签）
-        message.setContent("XX用户您好，您的用户激活验证码为：201928，3分钟内有效", "text/html;charset=UTF-8");
+        message.setContent("sb陈光辉你好，你在的用户激活验证码为：201928，3分钟内有效<br/>你可以下载代码看看", "text/html;charset=UTF-8");
 
         // 6. 设置发件时间
         message.setSentDate(new Date());
