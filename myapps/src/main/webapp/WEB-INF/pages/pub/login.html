@@ -8,10 +8,12 @@
 <link href="../css/pub/login.css" rel="stylesheet">
 </head>
 <body>
-	<h3>Login</h3>
-	<div id="msg">{{msg}}</div>
+	<h3>{{msg}}</h3>
 	用户名：<input type="text" ng-model="user.uname">{{userMsg.uname}}<br /> 
 	密码：<input type="password" ng-model="user.pwd">{{userMsg.pwd}}<br />
 	<button ng-click="loginCheck()">登录</button>
+	<div>
+		没有账号？<a href="javascript:void(0)" ng-click="regist()">注册</a>
+	</div>
 </body>
 </html>

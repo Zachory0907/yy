@@ -1,8 +1,8 @@
 var app = angular.module('app', []).controller('loginController',
 		function($scope, $http, queue) {
-			$scope.msg = "欢迎";
+			$scope.msg = "登录";
 			$scope.user = {};
-			$scope.userMsg = {"uname":"a", "pwd":"b"};
+			$scope.userMsg = {"uname":"", "pwd":""};
 			
 			$scope.loginCheck = function() {
 				var user = $scope.user;
@@ -17,5 +17,9 @@ var app = angular.module('app', []).controller('loginController',
 					alert("网络错误");
 				});
 			};
+			
+			$scope.regist = function () {
+				location.href = "./regist";
+			}
 
 		});

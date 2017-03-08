@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="zh-cn" ng-app="app" ng-controller="registController">
+<title>Login</title>
+<meta charset="UTF-8">
+#include("/WEB-INF/pages/tpl/header.vm")
+<script src="../js/pub/regist.js"></script>
+<script src="../js/ext/queue.js"></script>
+<link href="../css/pub/login.css" rel="stylesheet">
+</head>
+<body>
+	<h3>Regist</h3>
+	<div id="msg">{{msg}}</div>
+	用户名：<input type="text" ng-model="user.uname">{{userMsg.uname}}<br /> 
+	邮箱：<input type="text" ng-model="user.mail">{{userMsg.mail}}<br /> 
+	密码：<input type="password" ng-model="user.pwd">{{userMsg.pwd}}<br />
+	确认密码：<input type="password" ng-model="user.pwdSure">{{userMsg.pwdSure}}<br />
+	<button ng-click="registCheck()">注册</button>
+	<div>
+		已有账号？<a href="javascript:void(0)" ng-click="regist()">登录</a>
+	</div>
+</body>
+</html>
