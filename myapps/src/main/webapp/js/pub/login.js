@@ -11,8 +11,15 @@ var app = angular.module('app', []).controller('loginController',
 				if (!user.pwd)
 					return $scope.userMsg.pwd = "请输入密码";
 				$http.post("./loginCheck", user).then(function(data) {
-					if (data.data.status == "ok")
-						location.href = "./a";
+					if (data.data.status == "ok"){
+						
+					} else if (data.data.status == "error") {
+						
+					} else if (data.data.status == "nocheck") {
+						
+					} else if (data.data.status == "fatal"){
+						
+					}
 				}).catch(function() {
 					alert("网络错误");
 				});

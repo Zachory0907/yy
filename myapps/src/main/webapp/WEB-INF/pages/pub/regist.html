@@ -10,10 +10,10 @@
 <body>
 	<h3>Regist</h3>
 	<div id="msg">{{msg}}</div>
-	用户名：<input type="text" ng-model="user.uname">{{userMsg.uname}}<br /> 
-	邮箱：<input type="text" ng-model="user.mail">{{userMsg.mail}}<br /> 
-	密码：<input type="password" ng-model="user.pwd">{{userMsg.pwd}}<br />
-	确认密码：<input type="password" ng-model="user.pwdSure">{{userMsg.pwdSure}}<br />
+	用户名：<input type="text" ng-model="user.uname" ng-blur="blurName()" ng-keydown="userMsg.uname=''">{{userMsg.uname}}<br /> 
+	邮箱：<input type="text" ng-model="user.mail" ng-blur="blurMail()" ng-keydown="userMsg.mail=''">{{userMsg.mail}}<br /> 
+	密码：<input type="password" ng-model="user.pwd" ng-blur="blurPwd()" ng-keydown="userMsg.pwd=''">{{userMsg.pwd}}<br />
+	确认密码：<input type="password" ng-model="user.pwdSure" ng-blur="blurPwdSure()" ng-keydown="userMsg.pwdSure=''">{{userMsg.pwdSure}}<br />
 	<button ng-click="registCheck()">注册</button>
 	<div>
 		已有账号？<a href="javascript:void(0)" ng-click="regist()">登录</a>
