@@ -27,7 +27,7 @@ public class Mail {
 
 	public static void sendMsg(MailModel mm) throws Exception {
 		Session session = Session.getDefaultInstance(props);
-		session.setDebug(true); // 设置为debug模式, 可以查看详细的发送 log
+//		session.setDebug(true); // 设置为debug模式, 可以查看详细的发送 log
 		MimeMessage message = createMimeMessage(session, mm);
 		Transport transport = session.getTransport();
 		transport.connect(props.getProperty("myEmailAccount"), props.getProperty("myEmailPassword"));

@@ -9,9 +9,21 @@
 </head>
 <body>
 	<h3>{{msg}}</h3>
-	邮箱/用户名：<input type="text" ng-model="user.uname">{{userMsg.uname}}<br /> 
-	密码：<input type="password" ng-model="user.pwd">{{userMsg.pwd}}<br />
-	<button ng-click="loginCheck()">登录</button>
+	<div ng-show="status == 1">
+		邮箱/用户名：<input type="text" ng-model="user.uname">{{userMsg.uname}}<br /> 
+		密码：<input type="password" ng-model="user.pwd">{{userMsg.pwd}}<br />
+		<button ng-click="loginCheck()">登录</button>
+	</div>
+	<div ng-show="status == 2">
+		<div>
+			<span>首次登录需要激活邮箱，我们已发送激活码致您的注册邮箱，请前往您的邮箱查看并将激活码填写</span>
+		</div>
+		<div>
+			激活码：<input type="text" ng-model="activationCode">
+			<button ng-click="resend()">重新发送</button>
+			<button ng-click="activate()">激活</button>
+		</div>
+	</div>
 	<div>
 		没有账号？<a href="javascript:void(0)" ng-click="regist()">注册</a>
 	</div>

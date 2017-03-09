@@ -1,71 +1,74 @@
 package vip.zgt.app.web.controller;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
 import com.jfinal.ext.route.ControllerBind;
 import com.jfinal.plugin.activerecord.Record;
 
 import vip.zgt.app.base.BaseController;
 import vip.zgt.app.biz.Login;
 import vip.zgt.app.biz.Register;
-import vip.zgt.app.model.MailModel;
 import vip.zgt.app.util.Consts;
 import vip.zgt.app.util.JSONUtil;
 
 @ControllerBind(controllerKey = "/pub", viewPath = Consts.VIEW_PATH + "/pub")
-public class PublicController extends BaseController{
+public class PublicController extends BaseController {
 
 	public void index() {
 		render("login.html");
 	}
-	
+
 	public void loginCheck() {
-		Map<String, String> result = new HashMap<String, String>();
 		Record rec = JSONUtil.parseRecord(getPostData());
 		String uname = rec.getStr("uname");
 		String pwd = rec.getStr("pwd");
 		Record r = Login.loginCheck(uname, pwd);
+		if (r == null) {
+			renderJson("{\"status\":\"error\"}");
+			return;
+		}
 		Integer res = r.getInt("ISCHECK");
-		if (res == null) {
-			result.put("status", "error");
-			renderJson(result);
-		} else if (res == 1) {
-			result.put("status", "ok");
-			getSession(true).setAttribute("username", "FULL");
+		if (res == 1) {
+			this.getSession(true).setAttribute("username", "FULL");
+			renderJson("{\"status\":\"ok\"}");
 		} else if (res == 0) {
-			Integer rand = Login.sendMail(r);
-			if (rand != null) {
-				result.put("status", "nocheck");
-				result.put("rand", String.valueOf(rand));
-				result.put("time", String.valueOf(System.currentTimeMillis()));
+			if(Login.handleMail(this, r)) {
+				renderJson("{\"status\":\"nocheck\",\"id\":" + r.getInt("ID") + ",\"mail\":\"" + r.getStr("MAIL") + "\"}");
 			} else {
-				result.put("status", "fatal");
+				renderJson("{\"status\":\"fatal\"}");
 			}
-			renderJson(result);
+		} else {
+			renderJson("{\"status\":\"fatal\"}");
 		}
 	}
 	
-	public void a () {
-		render("a.html");
+	public void activate() {
+		String code = getPara("code");
+		String userid = getPara("userid");
+		int i = Login.activate(this, code);
+		if (i == 2) {
+			renderJson("{\"status\":\"wrong\"}");
+		} else if (i == 1) {
+			renderJson("{\"status\":\"outtime\"}");
+		} else {
+			Register.activate(userid);
+			renderJson("{\"status\":\"ok\"}");
+		}
 	}
-	
-	public void regist () {
+
+	public void regist() {
 		render("regist.html");
 	}
-	
-	public void isDuplicate () {
+
+	public void isDuplicate() {
 		String k = getPara("k");
 		String v = getPara("v");
-		if (Register.duplicate(k, v).size() > 0){
+		if (Register.duplicate(k, v).size() > 0) {
 			renderJson("{\"status\":\"error\"}");
 		} else {
 			renderJson("{\"status\":\"ok\"}");
 		}
 	}
-	
-	public void registUser () {
+
+	public void registUser() {
 		Record rec = JSONUtil.parseRecord(getPostData());
 		String uname = rec.getStr("uname");
 		String mail = rec.getStr("mail");
@@ -74,4 +77,17 @@ public class PublicController extends BaseController{
 		renderJson("{\"count\":\"" + count + "\"}");
 	}
 	
+	public void resend() {
+		String uname = getPara("uname");
+		String mail = getPara("mail");
+		Record r = new Record();
+		r.set("UNAME", uname);
+		r.set("MAIL", mail);
+		if(Login.handleMail(this, r)) {
+			renderJson("{\"status\":\"ok\"}");
+		} else {
+			renderJson("{\"status\":\"error\"}");
+		}
+	}
+
 }

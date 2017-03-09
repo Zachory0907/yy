@@ -20,4 +20,10 @@ public class Register extends BaseBiz{
 		String sql = "INSERT INTO YY_USER(ID, UNAME, MAIL, PWD, ISCHECK) VALUES (NULL, ?, ?, ?, ?)";
 		return getYYPro().update(sql, uname, mail, pwd, 0);
 	}
+
+	public static int activate(String userid) {
+		String sql = "UPDATE YY_USER SET ISCHECK=1 WHERE ID=?";
+		return getYYPro().update(sql, userid);
+	}
+
 }
