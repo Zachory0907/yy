@@ -17,8 +17,11 @@ public class Register extends BaseBiz{
 
 	public static int registUser(String uname, String mail, String pwd) {
 		pwd = MD5.String2MD5(pwd);
-		String sql = "INSERT INTO YY_USER(ID, UNAME, MAIL, PWD, ISCHECK) VALUES (NULL, ?, ?, ?, ?)";
-		return getYYPro().update(sql, uname, mail, pwd, 0);
+		String userSql = "INSERT INTO YY_USER(ID, UNAME, MAIL, PWD, ISCHECK) VALUES (NULL, ?, ?, ?, ?)";
+		getYYPro().update(userSql, uname, mail, pwd, 0);
+		String authSql = "INSERT INTO YY_AUTH(ID, UNAME, AUTH) VALUES (NULL, ?, 'YY')";
+		getYYPro().update(authSql, uname, mail, pwd, 0);
+		return 1;
 	}
 
 	public static int activate(String userid) {

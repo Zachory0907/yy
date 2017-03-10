@@ -14,7 +14,7 @@ var app = angular.module('app', []).controller('loginController',
 				$http.post("./loginCheck", user).then(function(data) {
 					if (data.data.status == "ok"){
 						alert("登录成功！");
-						location.href = "";
+						location.href = "../index";
 					} else if (data.data.status == "error") {
 						alert("用户名或密码输入错误！");
 					} else if (data.data.status == "nocheck") {
@@ -35,7 +35,7 @@ var app = angular.module('app', []).controller('loginController',
 				$http.get("./activate?code=" + $scope.activationCode + "&userid=" + $scope.userid).then(function(data) {
 					if (data.data.status == "ok"){
 						alert("激活成功！");
-						location.href = "";
+						location.href = "../index";
 					} else if (data.data.status == "outtime"){
 						alert("激活码超时失效，请重新获取激活码");
 					} else if (data.data.status == "wrong"){

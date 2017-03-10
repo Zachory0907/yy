@@ -9,6 +9,11 @@ import vip.zgt.app.biz.Register;
 import vip.zgt.app.util.Consts;
 import vip.zgt.app.util.JSONUtil;
 
+/**
+ * 系统前后交互的controller
+ * 需配置controllerKey：浏览器地址；viewPath：controller与静态文件交互的地址
+ * @author Zachory
+ */
 @ControllerBind(controllerKey = "/pub", viewPath = Consts.VIEW_PATH + "/pub")
 public class PublicController extends BaseController {
 
@@ -27,9 +32,10 @@ public class PublicController extends BaseController {
 		}
 		Integer res = r.getInt("ISCHECK");
 		if (res == 1) {
-			this.getSession(true).setAttribute("username", "FULL");
+			Login.setLoginInfo(this, r);
 			renderJson("{\"status\":\"ok\"}");
 		} else if (res == 0) {
+			Login.setLoginInfo(this, r);
 			if(Login.handleMail(this, r)) {
 				renderJson("{\"status\":\"nocheck\",\"id\":" + r.getInt("ID") + ",\"mail\":\"" + r.getStr("MAIL") + "\"}");
 			} else {

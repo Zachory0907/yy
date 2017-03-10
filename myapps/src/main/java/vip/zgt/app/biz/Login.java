@@ -1,6 +1,7 @@
 package vip.zgt.app.biz;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.jfinal.core.Controller;
@@ -11,12 +12,30 @@ import vip.zgt.app.model.MailModel;
 import vip.zgt.app.util.MD5;
 import vip.zgt.app.util.Mail;
 
+/**
+ * 系统登录所需的service
+ * @author Zachory
+ */
 public class Login extends BaseBiz{
 
 	public static Record loginCheck(String uname, String pwd) {
 		pwd = MD5.String2MD5(pwd);
-		String sql = "SELECT ID, ISCHECK, MAIL, UNAME FROM YY_USER WHERE (UNAME=? AND PWD=?) OR (MAIL=? AND PWD=?)";
+		String sql = "SELECT * FROM YY_USER WHERE (UNAME=? AND PWD=?) OR (MAIL=? AND PWD=?)";
 		return getYYPro().findFirst(sql, uname, pwd, uname, pwd);
+	}
+	
+	public static void setLoginInfo(Controller controller, Record r) {
+		String uname = r.getStr("UNAME");
+		String umail = r.getStr("MAIL");
+		String utel = r.getStr("TEL");
+		String sql = "SELECT AUTH FROM YY_AUTH WHERE UNAME=?";
+		List<Record> res = getYYPro().find(sql, uname);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("uname", uname);
+		map.put("umail", umail);
+		map.put("utel", utel);
+		map.put("uauth", res);
+		controller.getSession().setAttribute("user", map);
 	}
 
 	public static Integer sendMail(Record r) {
