@@ -1,8 +1,27 @@
-<html>
-<head>
-<title>Main-Page</title>
+<!DOCTYPE html>
+<html lang="zh-cn" ng-app="app" ng-controller="indexController">
+<title>Index</title>
+<meta charset="UTF-8">
+<link href="css/tpl/tpl.css" rel="stylesheet">
+<link href="css/import/bootstrap.min.css" rel="stylesheet">
+<script src="js/import/jquery-3.1.1.min.js"></script>
+<script src="js/import/bootstrap.min.js"></script>
+<script src="js/import/angular.min.js"></script>
+<script src="js/main/index.js"></script>
+<script src="js/ext/queue.js"></script>
 </head>
 <body>
-<h2>Hello World!</h2>
+	<h3>{{msg}}</h3>
+	<div>
+		<ul>
+			<li><a href="javascript:void(0)" ng-click="show('YY')">YY</a>
+				<ul ng-show="u.YY==true">
+					<li><a href="javascript:;" ng-click="go('Gt3', 'hxzgqc')">Gt3核心征管清册</a></li>
+					<li><a>b</a></li>
+					<li><a>c</a></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
 </body>
 </html>
