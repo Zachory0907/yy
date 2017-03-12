@@ -48,6 +48,11 @@ public class AuthInceptor implements Interceptor {
 			String[] auths = auth.value();
 			for (int i = 0; i < uauths.size(); i++) {
 				String uauth = uauths.get(i).getStr("AUTH");
+				if (uauth.equals("FULL")) {
+					// 如果这个人的权限是FULL的话，就直接通过
+					isCheck = true;
+					break;
+				}
 				for (String au : auths) {
 					if (au.equals(uauth)) {
 						isCheck = true;

@@ -6,10 +6,15 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import com.jfinal.core.Controller;
+import com.jfinal.upload.UploadFile;
 
 import vip.zgt.app.util.Consts;
 
 public class BaseController extends Controller {
+	
+	public UploadFile getFile(String param) {
+		return super.getFile(param);
+	}
 
 	protected String getPostData() {
 		InputStream is;

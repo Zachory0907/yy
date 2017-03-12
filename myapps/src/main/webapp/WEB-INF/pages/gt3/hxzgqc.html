@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-cn" ng-app="app" ng-controller="hxzgqcController">
-<title>Login</title>
+<title>QC</title>
 <meta charset="UTF-8">
 #include("/WEB-INF/pages/tpl/header.vm")
 <script src="../js/gt3/hxzgqc.js"></script>
@@ -8,5 +8,27 @@
 </head>
 <body>
 	<h3>{{msg}}</h3>
+	<button ng-click="impExl =! impExl" ng-show="isAdmin == true">导入</button>
+
+	<div ng-show="impExl == true">
+		<table>
+			<tr>
+				<td>Excel：</td>
+				<td>
+					<form method="post" enctype="multipart/form-data" id="submitForm" action="./postExcel">
+						<table>
+							<tr>
+								<td><input type="file" name="file" id="uploadFile"></input>
+							</tr>
+						</table>
+					</form>
+				</td>
+				<td>
+					<button ng-click="importExcel()">导入</button>
+					<button ng-click="impExl =! impExl">取消</button>
+				</td>
+			</tr>
+		</table>
+	</div>
 </body>
 </html>

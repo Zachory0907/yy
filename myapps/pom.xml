@@ -27,6 +27,12 @@
 			<version>3.1.4</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.jfinal</groupId>
+			<artifactId>cos</artifactId>
+			<version>26Dec2008</version>
+		</dependency>
+
 		<!-- DB dbcp pools -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -81,6 +87,14 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.38</version>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.hynnet/oracle-driver-ojdbc -->
+		<dependency>
+			<groupId>com.hynnet</groupId>
+			<artifactId>oracle-driver-ojdbc</artifactId>
+			<version>12.1.0.2</version>
+		</dependency>
+
 
 		<!-- velocity api -->
 		<dependency>
