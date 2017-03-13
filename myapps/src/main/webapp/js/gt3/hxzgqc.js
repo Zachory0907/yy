@@ -3,8 +3,14 @@ var app = angular.module('app', []).controller('hxzgqcController',
 			$scope.msg = "Gt3核心征管清册";
 			$scope.isAdmin = true;
 			$scope.impExl = false;
+			$scope.types = [{"k":"表名称清册","v":"bmc"}, {"k":"表字段清册","v":"bzd"}];
+			$scope.uploadType = "";
 
 			$scope.importExcel = function() {
+				debugger;
+				if(!$scope.uploadType){
+					return alert("请选择文件类型");
+				}
 				var uploadFile = $("#uploadFile").val();
 				if (!uploadFile) {
 					return alert("请选择需要上传的文件");

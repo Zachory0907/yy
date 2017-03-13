@@ -41,7 +41,7 @@ create table YY_AUTH(
 INSERT INTO YY_AUTH(ID, UNAME, AUTH) VALUES (1, 'admin', 'FULL');
 
 -- GT3系统清册表——名称
-create table YY_GT3_QC_NAME(
+create table YY_GT3_QC_TBNAME(
     ID INT(8) not null primary key auto_increment,
     OWNER VARCHAR(32),
     USER VARCHAR(32),    
@@ -54,6 +54,16 @@ create table YY_GT3_QC_NAME(
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- GT3系统清册表——字段
-create table YY_GT3_QC_FIELD(
-    ID INT(8) not null primary key auto_increment
+create table YY_GT3_QC_TBFIELD(
+    ID INT(8) not null primary key auto_increment,    
+    NAME_EN VARCHAR(128),
+    NAME_ZH VARCHAR(128), 
+    FIELD_EN VARCHAR(64),
+    FIELD_ZH VARCHAR(64),
+    FIELD_TYPE VARCHAR(64),
+    PROPERTY VARCHAR(32),
+    IS_PRIMARY VARCHAR(32),
+    IS_NULL VARCHAR(32),
+    TYPE VARCHAR(16),
+    EXT VARCHAR(32)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
