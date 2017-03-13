@@ -17,11 +17,7 @@ import vip.zgt.app.util.ExecutExcel;
 public class Gt3 extends BaseBiz{
 
 	public static void save(List<String> sqls, String tableName) {
-//		getYYPro().batch(sqls, sqls.size());
-		for (String sql : sqls) {
-			System.out.println(sql);
-			getYYPro().update(sql);
-		}
+		getYYPro().batch(sqls, sqls.size());
 		List<Record> rec = getYYPro().find("select * from " + tableName);
 		for (Record r : rec) {
 			System.out.println(r.getStr("NAME_ZH"));

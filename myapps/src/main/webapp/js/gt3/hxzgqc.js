@@ -7,7 +7,6 @@ var app = angular.module('app', []).controller('hxzgqcController',
 			$scope.uploadType = "";
 
 			$scope.importExcel = function() {
-				debugger;
 				if(!$scope.uploadType){
 					return alert("请选择文件类型");
 				}
