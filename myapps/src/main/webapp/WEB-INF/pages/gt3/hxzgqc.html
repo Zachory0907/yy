@@ -9,11 +9,42 @@
 <body>
 	<h3>{{msg}}</h3>
 	<button ng-click="impExl =! impExl" ng-show="isAdmin == true">导入</button>
-	<button ng-click="getTable()">查询</button>
+	<button ng-click="getTable('ywbmc')">查询业务表清册</button>
+	<button ng-click="getTable('dmbmc')">查询代码参数权限表名称清册</button>
 	
-	<div>
+	<div ng-show="showType == 'dmbmc'">
 		<table>
 			<tr>
+				<th>序号</th>
+				<th>OWNER</th>
+				<th>用户</th>
+				<th>物理表名称</th>
+				<th>物理表中文名称</th>
+				<th>包含字段总数</th>
+			</tr>
+			<tr ng-repeat="tb in dmbmcTable.list">
+				<td>{{$index + 1 + (dmbmcTable.pageNumber-1) * dmbmcTable.pageSize}}</td>	
+				<td>{{tb.OWNER}}</td>	
+				<td>{{tb.USER}}</td>	
+				<td>{{tb.NAME_EN}}</td>	
+				<td>{{tb.NAME_ZH}}</td>	
+				<td><a href="javascript:;" ng-click="getField(this)">{{tb.FIELDS}}</a></td>	
+			</tr>
+		</table>
+		<a href="javascript:;" ng-click="pageChange('dmbmc', 'pre')" ng-show="dmbmcTable.firstPage!=true">上一页</a>
+		第{{dmbmcTable.pageNumber}}页<br/>
+		每页<input type="number" ng-model="dmbmcTable.pageSize">条
+		共{{dmbmcTable.totalPage}}页<br/>
+		共{{dmbmcTable.totalRow}}条<br/>
+		是否首页：{{dmbmcTable.firstPage}}<br/>
+		是否末页：{{dmbmcTable.lastPage}}<br/>
+		<a href="javascript:;" ng-click="pageChange('dmbmc', 'next')" ng-show="dmbmcTable.lastPage!=true">下一页</a>
+	</div>
+	
+	<div ng-show="showType == 'ywbmc'">
+		<table>
+			<tr>
+				<th>序号</th>
 				<th>OWNER</th>
 				<th>用户</th>
 				<th>物理表名称</th>
@@ -21,21 +52,46 @@
 				<th>包含字段总数</th>
 				<th>备注</th>
 			</tr>
-			<tr ng-repeat="tb in table.list">
+			<tr ng-repeat="tb in ywbmcTable.list">
+				<td>{{$index + 1 + (ywbmcTable.pageNumber-1) * ywbmcTable.pageSize}}</td>
 				<td>{{tb.OWNER}}</td>	
 				<td>{{tb.USER}}</td>	
 				<td>{{tb.NAME_EN}}</td>	
 				<td>{{tb.NAME_ZH}}</td>	
-				<td>{{tb.FIELDS}}</td>	
+				<td><a href="javascript:;" ng-click="getField(this)">{{tb.FIELDS}}</a></td>	
 				<td>{{tb.BZ}}</td>	
 			</tr>
 		</table>
-		第{{table.pageNumber}}页<br/>
-		每页{{table.pageSize}}条<br/>
-		共{{table.totalPage}}页<br/>
-		共{{table.totalRow}}条<br/>
-		是否首页：{{table.firstPage}}<br/>
-		是否末页：{{table.lastPage}}<br/>
+		<a href="javascript:;" ng-click="pageChange('ywbmc', 'pre')" ng-show="ywbmcTable.firstPage!=true">上一页</a>
+		第{{ywbmcTable.pageNumber}}页<br/>
+		每页<input type="number" ng-model="ywbmcTable.pageSize">条<br/>
+		共{{ywbmcTable.totalPage}}页<br/>
+		共{{ywbmcTable.totalRow}}条<br/>
+		是否首页：{{ywbmcTable.firstPage}}<br/>
+		是否末页：{{ywbmcTable.lastPage}}<br/>
+		<a href="javascript:;" ng-click="pageChange('ywbmc', 'next')" ng-show="ywbmcTable.lastPage!=true">下一页</a>
+	</div>
+	<div ng-show="showType == 'fields'">
+		<table>
+			<tr>
+				<th>序号</th>
+				<th>字段名称</th>
+				<th>字段中文名称</th>
+				<th>数据类型</th>
+				<th>字段属性</th>
+				<th>是否主键标志</th>
+				<th>可空标志</th>
+			</tr>
+			<tr ng-repeat="tb in fields">
+				<td>{{$index + 1}}</td>
+				<td>{{tb.FIELD_EN}}</td>	
+				<td>{{tb.FIELD_ZH}}</td>	
+				<td>{{tb.FIELD_TYPE}}</td>	
+				<td>{{tb.PROPERTY}}</td>	
+				<td>{{tb.IS_PRIMARY}}</td>	
+				<td>{{tb.IS_NULL}}</td>	
+			</tr>
+		</table>
 	</div>
 
 	<div ng-show="impExl == true">

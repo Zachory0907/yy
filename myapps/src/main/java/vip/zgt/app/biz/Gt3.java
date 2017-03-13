@@ -32,7 +32,9 @@ public class Gt3 extends BaseBiz{
 			for (Map<String, Object> cols: rows) {
 				for(Map.Entry<String, Object> v : cols.entrySet()) {
 					sbkeys.append(v.getKey() + ",");
-					sbValues.append("\"" + String.valueOf(v.getValue() instanceof Double ? ((Double) v.getValue()).intValue():v.getValue()) + "\",");
+					String value = String.valueOf(v.getValue() instanceof Double ? ((Double) v.getValue()).intValue():v.getValue());
+					value = value.replace("\"", "'");
+					sbValues.append("\"" + value + "\",");
 				}
 			}
 			sbkeys.append("TYPE");
@@ -44,12 +46,17 @@ public class Gt3 extends BaseBiz{
 		Gt3.save(sqls, tableName);
 	}
 
-	public static Page<Record> getTable(String type) {
+	public static Page<Record> getTable(String type, int p, int l) {
 		StringBuffer sb = new StringBuffer("select * from YY_GT3_QC_TBNAME"); 
 		if (type != null) {
 			sb.append(" WHERE TYPE='" + type + "'");
 		}
-		return getYYPro().paginate(1, 50, sb.toString());
+		return getYYPro().paginate(p, l, sb.toString());
+	}
+
+	public static List<Record> getField(String tb) {
+		String sql = "SELECT * FROM YY_GT3_QC_TBFIELD WHERE NAME_EN=?";
+		return getYYPro().find(sql, tb);
 	}
 
 }

@@ -32,19 +32,15 @@ public class Gt3Controller extends BaseController {
 		if (type.equals("ywbmc")) {
 			headList = bmcHead;
 			tableName = "YY_GT3_QC_TBNAME";
-			type = "yw";
 		} else if (type.equals("ywbzd")){
 			headList = bzdHead;
 			tableName = "YY_GT3_QC_TBFIELD";
-			type = "yw";
 		} else if (type.equals("dmbmc")){
 			headList = bmcHead;
 			tableName = "YY_GT3_QC_TBNAME";
-			type = "dm";
 		} else if (type.equals("dmbzd")){
 			headList = bzdHead;
 			tableName = "YY_GT3_QC_TBFIELD";
-			type = "dm";
 		}
 		Gt3.saveExcel(uf, type, headList, tableName);
 		redirect("/Gt3/hxzgqc");
@@ -53,8 +49,17 @@ public class Gt3Controller extends BaseController {
 	@Before({AuthInceptor.class})
 	@AuthAnnotation({"YY"})
 	public void getTable() throws Exception {
-		String type = getPara("type");
-		renderJson(Gt3.getTable(type));
+		String type = getPara("v");
+		int p = getParaToInt("p");
+		int l = getParaToInt("l");
+		renderJson(Gt3.getTable(type, p, l));
+	}
+	
+	@Before({AuthInceptor.class})
+	@AuthAnnotation({"YY"})
+	public void getField() throws Exception {
+		String tb = getPara("tb");
+		renderJson(Gt3.getField(tb));
 	}
 	
 }
