@@ -9,6 +9,34 @@
 <body>
 	<h3>{{msg}}</h3>
 	<button ng-click="impExl =! impExl" ng-show="isAdmin == true">导入</button>
+	<button ng-click="getTable()">查询</button>
+	
+	<div>
+		<table>
+			<tr>
+				<th>OWNER</th>
+				<th>用户</th>
+				<th>物理表名称</th>
+				<th>物理表中文名称</th>
+				<th>包含字段总数</th>
+				<th>备注</th>
+			</tr>
+			<tr ng-repeat="tb in table.list">
+				<td>{{tb.OWNER}}</td>	
+				<td>{{tb.USER}}</td>	
+				<td>{{tb.NAME_EN}}</td>	
+				<td>{{tb.NAME_ZH}}</td>	
+				<td>{{tb.FIELDS}}</td>	
+				<td>{{tb.BZ}}</td>	
+			</tr>
+		</table>
+		第{{table.pageNumber}}页<br/>
+		每页{{table.pageSize}}条<br/>
+		共{{table.totalPage}}页<br/>
+		共{{table.totalRow}}条<br/>
+		是否首页：{{table.firstPage}}<br/>
+		是否末页：{{table.lastPage}}<br/>
+	</div>
 
 	<div ng-show="impExl == true">
 		<table>

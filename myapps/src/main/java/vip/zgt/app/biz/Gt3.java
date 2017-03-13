@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.Record;
 import com.jfinal.upload.UploadFile;
 
@@ -18,10 +19,6 @@ public class Gt3 extends BaseBiz{
 
 	public static void save(List<String> sqls, String tableName) {
 		getYYPro().batch(sqls, sqls.size());
-		List<Record> rec = getYYPro().find("select * from " + tableName);
-		for (Record r : rec) {
-			System.out.println(r.getStr("NAME_ZH"));
-		}
 	}
 
 	public static void saveExcel(UploadFile uf, String type, Object headList, String tableName) {
@@ -45,6 +42,14 @@ public class Gt3 extends BaseBiz{
 			sqls.add("INSERT INTO " + tableName + "(" + reskeys + ") VALUES (" + resvalues + ")");
 		}
 		Gt3.save(sqls, tableName);
+	}
+
+	public static Page<Record> getTable(String type) {
+		StringBuffer sb = new StringBuffer("select * from YY_GT3_QC_TBNAME"); 
+		if (type != null) {
+			sb.append(" WHERE TYPE='" + type + "'");
+		}
+		return getYYPro().paginate(1, 50, sb.toString());
 	}
 
 }
