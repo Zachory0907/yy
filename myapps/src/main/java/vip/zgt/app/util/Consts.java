@@ -14,6 +14,7 @@ public class Consts {
 	public static final String DB_BIZ = "biz";
 	public static final String GENERAL_SELECT = "select * ";
 	// 配置多数据源ActiveRecordPlugin使用的名字
-	public static final String ARP_NAME_YY= "yyConfig"; 
-	public static final String ARP_NAME_TEST= "testConfig"; 
+	public static final String ARP_MYSQL_YY= "yyConfig"; 
+	public static final String ARP_MYSQL_TEST= "testConfig"; 
+	public static final String ARP_ORACLE_GT3= "gt3Config"; 
 }

@@ -10,6 +10,7 @@ import com.jfinal.ext.route.AutoBindRoutes;
 import com.jfinal.kit.PropKit;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.activerecord.dialect.MysqlDialect;
+import com.jfinal.plugin.activerecord.dialect.OracleDialect;
 import com.jfinal.plugin.c3p0.C3p0Plugin;
 import com.jfinal.render.ViewType;
 
@@ -40,20 +41,20 @@ public class MyAppConfig extends JFinalConfig {
 		//jfinal的数据库连接是以插件的形式，所以
 		//1、创建实现IDataSourceProvider借口的对象
 		C3p0Plugin c3p0Plugin_YY = new C3p0Plugin(PropKit.get("jdbcUrl_YY"),PropKit.get("user_YY"),PropKit.get("password_YY"), PropKit.get("driverClass_YY"));
-		C3p0Plugin c3p0Plugin_TEST = new C3p0Plugin(PropKit.get("jdbcUrl_TEST"),PropKit.get("user_TEST"),PropKit.get("password_TEST"), PropKit.get("driverClass_TEST"));
+		C3p0Plugin c3p0Plugin_GT3 = new C3p0Plugin(PropKit.get("jdbcUrl_GT3"),PropKit.get("user_GT3"),PropKit.get("password_GT3"), PropKit.get("driverClass_GT3"));
 		//2、ActiveRecordPlugin
-		ActiveRecordPlugin arp_YY = new ActiveRecordPlugin(Consts.ARP_NAME_YY, c3p0Plugin_YY);
-		ActiveRecordPlugin arp_TEST = new ActiveRecordPlugin(Consts.ARP_NAME_TEST, c3p0Plugin_TEST);
+		ActiveRecordPlugin arp_YY = new ActiveRecordPlugin(Consts.ARP_MYSQL_YY, c3p0Plugin_YY);
+		ActiveRecordPlugin arp_GT3 = new ActiveRecordPlugin(Consts.ARP_ORACLE_GT3, c3p0Plugin_GT3);
 		arp_YY.setShowSql(true);
-		arp_TEST.setShowSql(false);
+		arp_GT3.setShowSql(false);
         arp_YY.setDialect(new MysqlDialect());
-        arp_TEST.setDialect(new MysqlDialect());
+        arp_GT3.setDialect(new OracleDialect());
         c3p0Plugin_YY.start();
-        c3p0Plugin_TEST.start();
+        c3p0Plugin_GT3.start();
         arp_YY.start();
-        arp_TEST.start();
+        arp_GT3.start();
         plugin.add(arp_YY);
-        plugin.add(arp_TEST);
+        plugin.add(arp_GT3);
 	}
 
 	@Override

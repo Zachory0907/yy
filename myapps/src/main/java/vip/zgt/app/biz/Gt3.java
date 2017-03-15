@@ -11,6 +11,7 @@ import com.jfinal.upload.UploadFile;
 
 import vip.zgt.app.base.BaseBiz;
 import vip.zgt.app.util.ExecutExcel;
+import vip.zgt.app.util.GetDDL;
 
 /**
  * @author Zachory
@@ -57,6 +58,19 @@ public class Gt3 extends BaseBiz{
 	public static List<Record> getField(String tb) {
 		String sql = "SELECT * FROM YY_GT3_QC_TBFIELD WHERE NAME_EN=?";
 		return getYYPro().find(sql, tb);
+	}
+
+	public static void getDDLs() {
+		String sql = "SELECT USER, NAME_EN FROM YY_GT3_QC_TBNAME LIMIT 5";
+		List<Record> tbnames = getYYPro().find(sql);
+		List<String> sqls = new ArrayList<String>();
+		for (Record rec:tbnames) {
+			String tb = rec.getStr("NAME_EN");
+			String user = rec.getStr("USER");
+			String ddl = GetDDL.getCreateOnly(tb, user);
+			sqls.add(ddl);
+			System.out.println(ddl);
+		}
 	}
 
 }

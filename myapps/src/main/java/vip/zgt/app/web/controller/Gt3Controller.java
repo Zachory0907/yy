@@ -62,4 +62,11 @@ public class Gt3Controller extends BaseController {
 		renderJson(Gt3.getField(tb));
 	}
 	
+	@Before({AuthInceptor.class})
+	@AuthAnnotation({"YY"})
+	public void getDDLs() throws Exception {
+		Gt3.getDDLs();
+		renderok();
+	}
+	
 }

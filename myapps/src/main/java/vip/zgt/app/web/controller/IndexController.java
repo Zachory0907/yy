@@ -25,9 +25,9 @@ public class IndexController extends BaseController {
 	@Before({AuthInceptor.class, TestInceptor.class})
 	@AuthAnnotation
 	public void test() {
-		List<Record> res1 = DbPro.use(Consts.ARP_NAME_YY).find("select * from test");
+		List<Record> res1 = DbPro.use(Consts.ARP_MYSQL_YY).find("select * from test");
 		System.out.println("res1:" + res1.toString());
-		List<Record> res2 = DbPro.use(Consts.ARP_NAME_TEST).find("select * from test");
+		List<Record> res2 = DbPro.use(Consts.ARP_MYSQL_TEST).find("select * from test");
 		System.out.println("res2:" + res2.toString());
 		render("index.html");
 	}

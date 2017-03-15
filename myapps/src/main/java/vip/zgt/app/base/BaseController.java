@@ -55,4 +55,20 @@ public class BaseController extends Controller {
 			mreq = (MultipartRequest) request;
 		return mreq.getParameter(field);
 	}
+	
+	public void renderok () {
+		renderJson("{\"status\":\"ok\"}");
+	}
+	
+	public void rendererror () {
+		renderJson("{\"status\":\"error\"}");
+	}
+	
+	public void rendersuccess () {
+		renderJson("{\"status\":\"success\"}");
+	}
+	
+	public void renderfatal () {
+		renderJson("{\"status\":\"fatal\"}");
+	}
 }

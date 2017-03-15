@@ -54,4 +54,14 @@ var app = angular.module('app', []).controller('hxzgqcController',
 					alert("网络错误！");
 				});
 			}; 
+			
+			$scope.getDDL = function() {
+				$http.get("./getDDLs").then(function (data) {
+					if(data.data == "ok"){
+						alert("成功");
+					}
+				}).catch(function(){
+					alert("网络错误！");
+				});
+			}; 
 		});
