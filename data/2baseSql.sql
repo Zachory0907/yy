@@ -67,3 +67,12 @@ create table YY_GT3_QC_TBFIELD(
     TYPE VARCHAR(16),
     EXT VARCHAR(32)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- GT3系统清册表——DDL
+create table YY_GT3_QC_DDL(
+    ID INT(8) not null primary key auto_increment,    
+    NAME_EN VARCHAR(128),
+    DDL BLOB, 
+    TYPE VARCHAR(16),
+    EXT VARCHAR(32)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

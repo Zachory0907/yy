@@ -68,9 +68,11 @@ public class Gt3 extends BaseBiz{
 			String tb = rec.getStr("NAME_EN");
 			String user = rec.getStr("USER");
 			String ddl = GetDDL.getCreateOnly(tb, user);
-			sqls.add(ddl);
 			System.out.println(ddl);
+			String insertDDL = "INSERT INTO YY_GT3_QC_DDL(ID, NAME_EN, DDL) VALUES (NULL, '" + tb + "', '" + ddl + "')";
+			sqls.add(insertDDL);
 		}
+		getYYPro().batch(sqls, sqls.size());
 	}
 
 }
