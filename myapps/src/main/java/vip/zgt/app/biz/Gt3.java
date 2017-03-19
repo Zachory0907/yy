@@ -13,6 +13,7 @@ import vip.zgt.app.base.BaseBiz;
 import vip.zgt.app.util.ExecutExcel;
 import vip.zgt.app.util.GetDDL;
 
+
 /**
  * @author Zachory
  */
@@ -21,6 +22,7 @@ public class Gt3 extends BaseBiz{
 	public static void save(List<String> sqls, String tableName) {
 		getYYPro().batch(sqls, sqls.size());
 	}
+	
 
 	public static void saveExcel(UploadFile uf, String type, Object headList, String tableName) {
 		String fileName = uf.getFileName();

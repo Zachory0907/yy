@@ -5,11 +5,11 @@
 ## Tools
 ----------
 >	+ Maven version: 3.1.1 及以上    
->	+ Java version: 1.7 及以上    
+>	+ Java version: 1.7 及以上 （最近加了solr5.5，哦不，是为了IK，就升成了1.8-_-!）
 >	+ Tomcat version: apache-tomcat-7 及以上    
 >	+ Java IDE: 无所谓    
 >	+ Git: 无所谓，代码托管在 Github 上了，能扣下来为原则    
->	+ Database: 没想好，暂用mysql 5.5.43了    
+>	+ Database: 没想好，暂用mysql 5.5.43了（不过最近配置了多数据源，其他也能加进来^_^）
 
 ## Deploy
 ------------

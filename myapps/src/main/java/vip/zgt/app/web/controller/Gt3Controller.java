@@ -10,6 +10,7 @@ import vip.zgt.app.biz.Gt3;
 import vip.zgt.app.util.Consts;
 import vip.zgt.app.web.interceptor.AuthInceptor;
 
+
 @ControllerBind(controllerKey = "/Gt3", viewPath = Consts.VIEW_PATH + "/gt3")
 public class Gt3Controller extends BaseController {
 	
