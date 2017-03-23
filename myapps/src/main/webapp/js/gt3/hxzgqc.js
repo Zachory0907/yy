@@ -9,6 +9,14 @@ var app = angular.module('app', []).controller('hxzgqcController',
 			$scope.ywbmcTable = {"pageNumber":1, "pageSize":50, "list":[]};
 			$scope.showType = "";
 			$scope.fields = [];
+			$scope.advance_search = "";
+			
+			$scope.goAdSearch = function () {
+				var url = "./adSearch";
+				var para = "?content=" + $scope.advance_search;
+				url = url + para;
+				window.open(url);
+			};
 
 			$scope.importExcel = function() {
 				if(!$scope.uploadType){

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-cn" ng-app="app" ng-controller="hxzgqcController">
-<title>QC</title>
+<title>清册</title>
 <meta charset="UTF-8">
 #include("/WEB-INF/pages/tpl/header.vm")
 <script src="../js/gt3/hxzgqc.js"></script>
@@ -11,6 +11,8 @@
 	<button ng-click="impExl =! impExl" ng-show="isAdmin == true">导入</button>
 	<button ng-click="getTable('ywbmc')">查询业务表清册</button>
 	<button ng-click="getTable('dmbmc')">查询代码参数权限表名称清册</button>
+	<br>
+	<input type="text" ng-model="advance_search"/><button ng-click="goAdSearch()">搜索</button>
 	
 	<div ng-show="showType == 'dmbmc'">
 		<table>

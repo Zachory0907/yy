@@ -13,7 +13,7 @@ public class SolrUtils {
 	/**
 	 * solr 服务器访问地址
 	 */
-	private static String url = "http://localhost:8983/solr/#/collection1";
+	private static String url = "http://localhost:8983/solr/collection1";
 	private static Integer connectionTimeout = 100;
 	private static Integer defaltMaxConnectionsPerHost = 100;
 	private static Integer maxTotalConnections = 100;

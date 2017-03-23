@@ -8,11 +8,28 @@ import vip.zgt.app.base.BaseController;
 import vip.zgt.app.base.annotation.AuthAnnotation;
 import vip.zgt.app.biz.Gt3;
 import vip.zgt.app.util.Consts;
+import vip.zgt.app.util.Solrj;
 import vip.zgt.app.web.interceptor.AuthInceptor;
 
 
 @ControllerBind(controllerKey = "/Gt3", viewPath = Consts.VIEW_PATH + "/gt3")
 public class Gt3Controller extends BaseController {
+	
+	@Before({AuthInceptor.class})
+	@AuthAnnotation({"YY", "VIP"})
+	public void adSearch() {
+		render("hxzgAdSearch.html");
+	}
+	
+	@Before({AuthInceptor.class})
+	@AuthAnnotation({"YY", "VIP"})
+	public void executeAdSearch() {
+		String content = getPara("content");
+		Integer p = getParaToInt("p");
+		Integer l = getParaToInt("l");
+		String queryStr = "yy_gt3_all:" + content + "*";
+		renderJson(Solrj.queryPage(queryStr, p, l));
+	}
 	
 	@Before({AuthInceptor.class})
 	@AuthAnnotation({"YY", "VIP"})

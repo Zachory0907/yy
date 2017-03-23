@@ -75,8 +75,8 @@ public class Login extends BaseBiz{
 		if (map == null) {
 			return 0;
 		} else {
-			int lastCode = (int) map.get("code");
-			long lastMail = (long) map.get("timestamp");
+			int lastCode = Integer.valueOf(map.get("code").toString());
+			long lastMail = Long.valueOf(map.get("timestamp").toString());
 			long now = System.currentTimeMillis();
 			float value = (now - lastMail)/1000;//秒
 			if (value > 300) {

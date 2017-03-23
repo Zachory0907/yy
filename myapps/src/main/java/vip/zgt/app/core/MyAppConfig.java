@@ -38,6 +38,7 @@ public class MyAppConfig extends JFinalConfig {
 
 	@Override
 	public void configPlugin(Plugins plugin) {
+		plugin.add(new SysinfoPlugin());
 		//jfinal的数据库连接是以插件的形式，所以
 		//1、创建实现IDataSourceProvider借口的对象
 		C3p0Plugin c3p0Plugin_YY = new C3p0Plugin(PropKit.get("jdbcUrl_YY"),PropKit.get("user_YY"),PropKit.get("password_YY"), PropKit.get("driverClass_YY"));

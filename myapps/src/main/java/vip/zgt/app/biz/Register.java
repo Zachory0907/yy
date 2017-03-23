@@ -20,7 +20,7 @@ public class Register extends BaseBiz{
 		String userSql = "INSERT INTO YY_USER(ID, UNAME, MAIL, PWD, ISCHECK) VALUES (NULL, ?, ?, ?, ?)";
 		getYYPro().update(userSql, uname, mail, pwd, 0);
 		String authSql = "INSERT INTO YY_AUTH(ID, UNAME, AUTH) VALUES (NULL, ?, 'YY')";
-		getYYPro().update(authSql, uname, mail, pwd, 0);
+		getYYPro().update(authSql, uname);
 		return 1;
 	}
 
