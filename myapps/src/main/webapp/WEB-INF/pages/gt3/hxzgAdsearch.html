@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="zh-cn" ng-app="app" ng-controller="hxzgAdsearchController">
+<title>高级搜索</title>
+<meta charset="UTF-8">
+#include("/WEB-INF/pages/tpl/header.vm")
+<script src="../js/gt3/hxzgAdSearch.js"></script>
+<script src="../js/ext/queue.js"></script>
+</head>
+<body>
+	<h3>{{msg}}</h3>
+	<div id="tb">
+	</div>
+	<a href="javascript:;" ng-click="pageChange('pre')" ng-show="results.firstPage!=true">上一页</a>
+	第{{results.pageNumber}}页<br/>
+	每页<input type="number" ng-model="results.pageSize">条
+	共{{results.totalPage}}页<br/>
+	共{{results.totalRow}}条<br/>
+	是否首页：{{results.firstPage}}<br/>
+	是否末页：{{results.lastPage}}<br/>
+	<a href="javascript:;" ng-click="pageChange('next')" ng-show="results.lastPage!=true">下一页</a>
+</body>
+</html>

@@ -14,6 +14,7 @@ import com.jfinal.plugin.activerecord.dialect.OracleDialect;
 import com.jfinal.plugin.c3p0.C3p0Plugin;
 import com.jfinal.render.ViewType;
 
+import vip.zgt.app.core.plugin.SysinfoPlugin;
 import vip.zgt.app.util.Consts;
 
 public class MyAppConfig extends JFinalConfig {
