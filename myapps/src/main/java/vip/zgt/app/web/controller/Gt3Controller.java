@@ -1,5 +1,8 @@
 package vip.zgt.app.web.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.jfinal.aop.Before;
 import com.jfinal.ext.route.ControllerBind;
 import com.jfinal.upload.UploadFile;
@@ -27,7 +30,7 @@ public class Gt3Controller extends BaseController {
 		String content = getPara("content");
 		Integer p = getParaToInt("p");
 		Integer l = getParaToInt("l");
-		String queryStr = "yy_gt3_all:" + content + "*";
+		String queryStr = "yy_gt3_all:" + content;
 		renderJson(Solrj.queryPage(queryStr, p, l));
 	}
 	
@@ -78,6 +81,16 @@ public class Gt3Controller extends BaseController {
 	public void getField() throws Exception {
 		String tb = getPara("tb");
 		renderJson(Gt3.getField(tb));
+	}
+	
+	@Before({AuthInceptor.class})
+	@AuthAnnotation({"YY"})
+	public void getDDL() throws Exception {
+		String tb = getPara("tb");
+		String ddl = Gt3.getDDL(tb);
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("ddl", ddl);
+		renderJson(map);
 	}
 	
 	@Before({AuthInceptor.class})

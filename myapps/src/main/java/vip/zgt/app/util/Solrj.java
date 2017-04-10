@@ -8,11 +8,12 @@ import java.util.Map;
 
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
 import org.apache.solr.common.SolrInputDocument;
+
+import vip.zgt.app.core.plugin.SolrPro;
 
 public class Solrj {
 
@@ -21,7 +22,6 @@ public class Solrj {
 	 */
 	public static SolrDocumentList query(String mQueryStr) {
 		try {
-			HttpSolrClient httpSolrClient = SolrUtils.connect();
 			SolrQuery query = new SolrQuery();
 			// 设定查询字段
 			query.setQuery("*:*");
@@ -31,7 +31,7 @@ public class Solrj {
 			// query.set("q.op","AND");
 			// 设定返回记录数，默认为10条
 			query.setRows(10);
-			QueryResponse response = httpSolrClient.query(query);
+			QueryResponse response = SolrPro.httpSolrClient.query(query);
 			SolrDocumentList list = response.getResults();
 			return list;
 		} catch (SolrServerException e) {
@@ -44,11 +44,10 @@ public class Solrj {
 
 	public static void addDoc(Map<String, Object> map) {
 		try {
-			HttpSolrClient httpSolrClient = SolrUtils.connect();
 			SolrInputDocument document = new SolrInputDocument();
-			document = SolrUtils.addFileds(map, document);
-			httpSolrClient.add(document);
-			httpSolrClient.commit();
+			document = SolrPro.addFileds(map, document);
+			SolrPro.httpSolrClient.add(document);
+			SolrPro.httpSolrClient.commit();
 		} catch (SolrServerException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -57,12 +56,11 @@ public class Solrj {
 	}
 	
 	public static void insertAndUpdateIndex() throws Exception {
-		HttpSolrClient httpSolrClient = SolrUtils.connect();
 		SolrInputDocument doc = new SolrInputDocument();
 		doc.addField("id", "c003");
 		doc.addField("name", "c003");
-		httpSolrClient.add(doc);
-		httpSolrClient.commit();
+		SolrPro.httpSolrClient.add(doc);
+		SolrPro.httpSolrClient.commit();
 	}
 
 	/**
@@ -70,9 +68,8 @@ public class Solrj {
 	 */
 	public static void deleteById(String id) {
 		try {
-			HttpSolrClient httpSolrClient = SolrUtils.connect();
-			httpSolrClient.deleteById(id);
-			httpSolrClient.commit();
+			SolrPro.httpSolrClient.deleteById(id);
+			SolrPro.httpSolrClient.commit();
 		} catch (SolrServerException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -86,7 +83,6 @@ public class Solrj {
 	 */
 	public static Map<String, Object> queryPage(String queryStr, Integer start, Integer rows) {
 		try {
-			HttpSolrClient httpSolrClient = SolrUtils.connect();
 			SolrQuery query = new SolrQuery();
 			// 设定查询字段 *:*
 			query.setQuery(queryStr);
@@ -118,7 +114,7 @@ public class Solrj {
 			query.addHighlightField("yy_gt3_user");
 			// 设定拼写检查
 //			query.setRequestHandler("/spell");
-			QueryResponse response = httpSolrClient.query(query);
+			QueryResponse response = SolrPro.httpSolrClient.query(query);
 			SolrDocumentList list = response.getResults();
 			long totalRow = list.getNumFound(); //总条数
 			int totalPage = (int) (totalRow / rows); //总页数

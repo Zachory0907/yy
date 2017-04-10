@@ -1,6 +1,7 @@
 package vip.zgt.app.biz;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -110,19 +111,36 @@ public class Gt3 extends BaseBiz {
 		String sql = "SELECT * FROM YY_GT3_QC_TBFIELD WHERE NAME_EN=?";
 		return getYYPro().find(sql, tb);
 	}
+	
+	public static String getDDL(String tb) {
+		String sql = "SELECT * FROM YY_GT3_QC_DDL WHERE NAME_EN=?";
+		String ddl = "";
+		try {
+			ddl = new String(getYYPro().findFirst(sql, tb).getBytes("DDL"),"utf-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return ddl;
+	}
 
 	public static void getDDLs() {
-		String sql = "SELECT USER, NAME_EN FROM YY_GT3_QC_TBNAME LIMIT 5";
+		String sql = "SELECT USER, NAME_EN FROM YY_GT3_QC_TBNAME";
 		List<Record> tbnames = getYYPro().find(sql);
 		List<String> sqls = new ArrayList<String>();
 		for (Record rec : tbnames) {
 			String tb = rec.getStr("NAME_EN");
-			String user = rec.getStr("USER");
+//			String user = rec.getStr("USER");
+			String user = "UFAUD";
 			String ddl = GetDDL.getCreateOnly(tb, user);
-			System.out.println(ddl);
+			if (ddl == null) {
+				continue;
+			}
 			String insertDDL = "INSERT INTO YY_GT3_QC_DDL(ID, NAME_EN, DDL) VALUES (NULL, '" + tb + "', '" + ddl + "')";
 			sqls.add(insertDDL);
+			String updateSql = "UPDATE YY_GT3_QC_TBNAME SET EXT = 1 WHERE NAME_EN='" + tb + "'";
+			sqls.add(updateSql);
 		}
+		getYYPro().update("DELETE FROM YY_GT3_QC_DDL");
 		getYYPro().batch(sqls, sqls.size());
 	}
 }

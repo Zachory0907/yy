@@ -9,6 +9,7 @@ var app = angular.module('app', []).controller('hxzgqcController',
 			$scope.ywbmcTable = {"pageNumber":1, "pageSize":50, "list":[]};
 			$scope.showType = "";
 			$scope.fields = [];
+			$scope.ddls = {};
 			$scope.advance_search = "";
 			
 			$scope.goAdSearch = function () {
@@ -63,7 +64,18 @@ var app = angular.module('app', []).controller('hxzgqcController',
 				});
 			}; 
 			
-			$scope.getDDL = function() {
+			$scope.getDDL = function(v) {
+				var tb = v.tb.NAME_EN;
+				$http.get("./getDDL?tb=" + tb).then(function (data) {
+					debugger;
+					$scope.ddls = data.data.ddl;
+					$scope.showType = "ddls";
+				}).catch(function(){
+					alert("网络错误！");
+				});
+			}; 
+			
+			$scope.batchDDL = function() {
 				$http.get("./getDDLs").then(function (data) {
 					if(data.data == "ok"){
 						alert("成功");

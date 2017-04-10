@@ -4,6 +4,10 @@ import javax.servlet.http.HttpServletRequest;
 
 public class Sysinfo {
 
+	public static void buildInfoString(StringBuilder sb, String key, String value) {
+		sb.append(String.format(" [%s] %s", key, value)).append("\n");
+	}
+	
 	public static void buildInfoString(StringBuilder sb, String key) {
 		sb.append(String.format(" [%s] %s", key, System.getProperty(key))).append("\n");
 	}

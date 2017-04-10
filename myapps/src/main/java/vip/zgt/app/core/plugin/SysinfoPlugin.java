@@ -4,7 +4,7 @@ import com.jfinal.plugin.IPlugin;
 
 import vip.zgt.app.util.Sysinfo;
 
-public class SysinfoPlugin  implements IPlugin {
+public class SysinfoPlugin implements IPlugin {
 
 	
 	@Override

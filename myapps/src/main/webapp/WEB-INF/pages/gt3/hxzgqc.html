@@ -28,7 +28,8 @@
 				<td>{{$index + 1 + (dmbmcTable.pageNumber-1) * dmbmcTable.pageSize}}</td>	
 				<td>{{tb.OWNER}}</td>	
 				<td>{{tb.USER}}</td>	
-				<td>{{tb.NAME_EN}}</td>	
+				<td ng-show="tb.EXT == 1"><a href="javascript:;" ng-click="getDDL(this)">{{tb.NAME_EN}}</a></td>	
+				<td ng-show="tb.EXT != 1">{{tb.NAME_EN}}</td>
 				<td>{{tb.NAME_ZH}}</td>	
 				<td><a href="javascript:;" ng-click="getField(this)">{{tb.FIELDS}}</a></td>	
 			</tr>
@@ -58,7 +59,8 @@
 				<td>{{$index + 1 + (ywbmcTable.pageNumber-1) * ywbmcTable.pageSize}}</td>
 				<td>{{tb.OWNER}}</td>	
 				<td>{{tb.USER}}</td>	
-				<td>{{tb.NAME_EN}}</td>	
+				<td ng-show="tb.EXT == 1"><a href="javascript:;" ng-click="getDDL(this)">{{tb.NAME_EN}}</a></td>	
+				<td ng-show="tb.EXT != 1">{{tb.NAME_EN}}</td>	
 				<td>{{tb.NAME_ZH}}</td>	
 				<td><a href="javascript:;" ng-click="getField(this)">{{tb.FIELDS}}</a></td>	
 				<td>{{tb.BZ}}</td>	
@@ -95,6 +97,12 @@
 			</tr>
 		</table>
 	</div>
+	<div ng-show="showType == 'ddls'">
+		DDL:
+		<div>
+			{{ddls}}
+		</div>
+	</div>
 
 	<div ng-show="impExl == true">
 		<table>
@@ -124,7 +132,7 @@
 			</tr>
 		</table>
 		<div>
-			<button ng-click="getDDL()">扫描DDL</button>
+			<button ng-click="batchDDL()">扫描DDL</button>
 		</div>
 	</div>
 </body>

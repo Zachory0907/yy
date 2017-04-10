@@ -24,9 +24,13 @@ public class GetDDL extends BaseBiz{
 		String createSql = "";
 		String sql = "SELECT DBMS_METADATA.GET_DDL('TABLE', '" + tablename.toUpperCase() + "', '" + username.toUpperCase() + "') AS fullSql FROM DUAL";
 		log.info(sql);
-		Record rec = getOraclePro().findFirst(sql);
-		String fullSql = rec.getStr("FULLSQL");
-		createSql = utilCreate(fullSql);
+		try {
+			Record rec = getOraclePro().findFirst(sql);
+			String fullSql = rec.getStr("FULLSQL");
+			createSql = utilCreate(fullSql);
+		} catch (Exception e) {
+			createSql = null;
+		}
 		return createSql;
 	}
 	
