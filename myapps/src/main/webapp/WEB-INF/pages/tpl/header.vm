@@ -1,5 +1,5 @@
-<link href="../css/tpl/tpl.css" rel="stylesheet"> 
 <link href="../css/import/bootstrap.min.css" rel="stylesheet"> 
 <script src="../js/import/jquery-3.1.1.min.js"></script>
 <script src="../js/import/bootstrap.min.js"></script>
 <script src="../js/import/angular.min.js"></script>
+<link href="../css/tpl/tpl.css" rel="stylesheet">

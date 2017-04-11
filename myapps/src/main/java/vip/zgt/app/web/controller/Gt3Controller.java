@@ -21,13 +21,16 @@ public class Gt3Controller extends BaseController {
 	@Before({AuthInceptor.class})
 	@AuthAnnotation({"YY", "VIP"})
 	public void adSearch() {
-		render("hxzgAdSearch.html");
+		render("hxzgAdsearch.html");
 	}
 	
 	@Before({AuthInceptor.class})
 	@AuthAnnotation({"YY", "VIP"})
 	public void executeAdSearch() {
 		String content = getPara("content");
+		if (content.equals("")) {
+			content = "*";
+		}
 		Integer p = getParaToInt("p");
 		Integer l = getParaToInt("l");
 		String queryStr = "yy_gt3_all:" + content;

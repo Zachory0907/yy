@@ -46,6 +46,11 @@ public class PublicController extends BaseController {
 		}
 	}
 	
+	public void logout () {
+		Login.setLogout(this);
+		redirect("/index");
+	}
+	
 	public void activate() {
 		String code = getPara("code");
 		String userid = getPara("userid");

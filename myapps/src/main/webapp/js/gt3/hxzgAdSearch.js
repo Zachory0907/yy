@@ -40,15 +40,20 @@ var app = angular.module('app', []).controller('hxzgAdsearchController',
 					tb = tb + "<th>序号</th><th>描述</th><th>操作</th></tr><thead><tbody>";
 					for (var i=0, j=$scope.results.list.length; i<j; i++) {
 						var ord = (i+1) + ($scope.results.pageNumber-1) * $scope.results.pageSize;
-						var td = "<tr><td>" + ord + "</td><td>" + $scope.results.list[i].content + "</td><td><a href=\"javascript:;\">查看</a></td></tr>"; 
+						var td = "<tr><td>" + ord + "</td><td>" + $scope.results.list[i].content + "</td><td><a href=\"javascript:;\" ng-click=\"showItem()\">查看</a></td></tr>"; 
 						tb += td;
 					}
 					tb = tb + "</tbody></table>";
-					var table = $(tb);
+					//var table = $(tb);
+					var table = $compile(tb)($scope);
 					table.appendTo("#tb");
 				}).catch(function(){
 					alert("网络错误！");
 				});
+			};
+			
+			var showItem = function (v) {
+				debugger;
 			};
 			getCont();
 		});

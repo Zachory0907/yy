@@ -1,22 +1,46 @@
 <!DOCTYPE html>
 <html lang="zh-cn" ng-app="app" ng-controller="registController">
-<title>Login</title>
+<title>Regist</title>
 <meta charset="UTF-8">
 #include("/WEB-INF/pages/tpl/header.vm")
+#include("/WEB-INF/pages/tpl/navbar.vm")
 <script src="../js/pub/regist.js"></script>
 <script src="../js/ext/queue.js"></script>
 <link href="../css/pub/login.css" rel="stylesheet">
 </head>
 <body>
-	<h3>Regist</h3>
-	<div id="msg">{{msg}}</div>
-	用户名：<input type="text" ng-model="user.uname" ng-blur="blurName()" ng-keydown="userMsg.uname=''">{{userMsg.uname}}<br /> 
-	邮箱：<input type="text" ng-model="user.mail" ng-blur="blurMail()" ng-keydown="userMsg.mail=''">{{userMsg.mail}}<br /> 
-	密码：<input type="password" ng-model="user.pwd" ng-blur="blurPwd()" ng-keydown="userMsg.pwd=''">{{userMsg.pwd}}<br />
-	确认密码：<input type="password" ng-model="user.pwdSure" ng-blur="blurPwdSure()" ng-keydown="userMsg.pwdSure=''">{{userMsg.pwdSure}}<br />
-	<button ng-click="registCheck()">注册</button>
-	<div>
-		已有账号？<a href="javascript:void(0)" ng-click="regist()">登录</a>
+<div class="container">
+	<h3>
+		{{msg}} <small>Regist</small>
+	</h3>
+	<div style="width:500px">
+	<div id="uname" class="form-group">
+		用户名：
+		<input type="text" class="form-control" aria-describedby="helpuname" ng-model="user.uname" ng-blur="blurName()" ng-keydown="userMsg.uname=''">
+		<span id="helpuname" class="help-block">{{userMsg.uname}}</span>
+	</div> 
+	<div id="mail">
+		邮箱：
+		<input type="text" class="form-control" aria-describedby="helpmail" ng-model="user.mail" ng-blur="blurMail()" ng-keydown="userMsg.mail=''">
+		<span id="helpmail" class="help-block">{{userMsg.mail}}</span>
 	</div>
+	<div id="pwd">
+		密码：
+		<input type="password" class="form-control" aria-describedby="helppwd" ng-model="user.pwd" ng-blur="blurPwd()" ng-keydown="userMsg.pwd=''">
+		<span id="helppwd" class="help-block">{{userMsg.pwd}}</span>
+	</div>
+	<div id="pwdSure">
+		确认密码：
+		<input type="password" class="form-control" aria-describedby="helppwdSure" ng-model="user.pwdSure" ng-blur="blurPwdSure()" ng-keydown="userMsg.pwdSure=''">
+		<span id="helppwdSure" class="help-block">{{userMsg.pwdSure}}</span>
+	</div>
+	<button class="btn btn-primary btn-sm" ng-click="registCheck()">注册</button>
+	</div>
+	<br/>
+	<div>
+		已有账号？<a href="javascript:void(0)" ng-click="regist()" class="btn btn-default btn-sm active" role="button">登录</a>
+	</div>
+	
+</div>
 </body>
 </html>

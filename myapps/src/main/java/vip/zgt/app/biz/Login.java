@@ -37,6 +37,10 @@ public class Login extends BaseBiz{
 		map.put("uauth", res);
 		controller.getSession().setAttribute("user", map);
 	}
+	
+	public static void setLogout (Controller controller) {
+		controller.getSession().setAttribute("user", null);
+	}
 
 	public static Integer sendMail(Record r) {
 		int rand = (int)((Math.random()*9+1)*100000);
