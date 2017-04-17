@@ -23,8 +23,8 @@ import vip.zgt.app.util.UUID;
 public class Gt3 extends BaseBiz {
 
 	public static void save(List<String> sqls, String tableName) {
-		System.out.println("ok");
-		// getYYPro().batch(sqls, sqls.size());
+//		System.out.println("ok");
+		getYYPro().batch(sqls, sqls.size());
 	}
 
 	public static void saveExcel(UploadFile uf, String type, Object headList, String tableName) {

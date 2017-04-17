@@ -9,6 +9,7 @@ import java.util.Map;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.response.QueryResponse;
+import org.apache.solr.client.solrj.response.UpdateResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
 import org.apache.solr.common.SolrInputDocument;
@@ -47,7 +48,8 @@ public class Solrj {
 			SolrInputDocument document = new SolrInputDocument();
 			document = SolrPro.addFileds(map, document);
 			SolrPro.httpSolrClient.add(document);
-			SolrPro.httpSolrClient.commit();
+			UpdateResponse ur = SolrPro.httpSolrClient.commit();
+			System.out.println(ur);
 		} catch (SolrServerException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

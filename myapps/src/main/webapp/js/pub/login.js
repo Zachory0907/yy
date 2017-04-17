@@ -5,8 +5,6 @@ var app = angular.module('app', []).controller('loginController',
 			$scope.userMsg = {"uname":"", "pwd":""};
 			$scope.status = 1;
 			$scope.alert_error = 0;
-			yymodal.alert("你是猪么？", "就问你");
-			yymodal.alert("是！");
 			
 			$scope.loginCheck = function() {
 				$scope.alert_error = 0;
