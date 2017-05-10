@@ -8,16 +8,56 @@
 </head>
 <body>
 	<h3>{{msg}}</h3>
-	<button onclick="showItem()">aa</button>
-	<div id="tb">
+	<div ng-show="showMx == 0">
+		<div id="tb">
+		</div>
+		<a href="javascript:;" ng-click="pageChange('pre')" ng-show="results.firstPage!=true">上一页</a>
+		第{{results.pageNumber}}页<br/>
+		每页<input type="number" ng-model="results.pageSize">条
+		共{{results.totalPage}}页<br/>
+		共{{results.totalRow}}条<br/>
+		是否首页：{{results.firstPage}}<br/>
+		是否末页：{{results.lastPage}}<br/>
+		<a href="javascript:;" ng-click="pageChange('next')" ng-show="results.lastPage!=true">下一页</a>
 	</div>
-	<a href="javascript:;" ng-click="pageChange('pre')" ng-show="results.firstPage!=true">上一页</a>
-	第{{results.pageNumber}}页<br/>
-	每页<input type="number" ng-model="results.pageSize">条
-	共{{results.totalPage}}页<br/>
-	共{{results.totalRow}}条<br/>
-	是否首页：{{results.firstPage}}<br/>
-	是否末页：{{results.lastPage}}<br/>
-	<a href="javascript:;" ng-click="pageChange('next')" ng-show="results.lastPage!=true">下一页</a>
+	<div ng-show="showMx == 1">
+		<h4>{{searchMsg}}</h4>
+		<table>
+			<tr>
+				<td>表中文名：</td>
+				<td>{{tableMx.NAME_ZH}}</td>
+				<td>表英文名：</td>
+				<td>{{tableMx.NAME_EN}}</td>
+			</tr>
+			<tr>
+				<td>OWNER：</td>
+				<td>{{tableMx.OWNER}}</td>
+				<td>USER：</td>
+				<td>{{tableMx.USER}}</td>
+			</tr>
+		</table>
+		<h4>字段详情：</h4>
+		<table>
+			<tr>
+				<th>序号</th>
+				<th>字段名称</th>
+				<th>字段中文名称</th>
+				<th>数据类型</th>
+				<th>字段属性</th>
+				<th>是否主键标志</th>
+				<th>可空标志</th>
+			</tr>
+			<tr ng-repeat="tb in fields">
+				<td>{{$index + 1}}</td>
+				<td>{{tb.FIELD_EN}}</td>	
+				<td>{{tb.FIELD_ZH}}</td>	
+				<td>{{tb.FIELD_TYPE}}</td>	
+				<td>{{tb.PROPERTY}}</td>	
+				<td>{{tb.IS_PRIMARY}}</td>	
+				<td>{{tb.IS_NULL}}</td>	
+			</tr>
+		</table>
+		<button ng-click="showMx=0">返回</button>
+	</div>
 </body>
 </html>

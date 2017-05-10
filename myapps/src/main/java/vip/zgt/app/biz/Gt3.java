@@ -52,6 +52,7 @@ public class Gt3 extends BaseBiz {
 			String resvalues = sbValues.toString();
 			sqls.add("INSERT INTO " + tableName + "(" + reskeys + ") VALUES (" + resvalues + ")");
 		}
+		Solrj.commit();
 		Gt3.save(sqls, tableName);
 	}
 
@@ -88,11 +89,14 @@ public class Gt3 extends BaseBiz {
 					if (v.getKey().equals("FIELD_EN")) {
 						solrDoc.put("yy_gt3_field_en", v.getValue());
 					}
+					if (v.getKey().equals("NAME_ZH")) {
+						solrDoc.put("yy_gt3_tbname_zh", v.getValue());
+					}
 				}
 			}
 		}
 		try {
-			Solrj.addDoc(solrDoc);
+			Solrj.addDoc(solrDoc, false);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return;
@@ -142,5 +146,11 @@ public class Gt3 extends BaseBiz {
 		}
 		getYYPro().update("DELETE FROM YY_GT3_QC_DDL");
 		getYYPro().batch(sqls, sqls.size());
+	}
+
+	public static Record getTableMx(String tb) {
+		String sql = "select * from YY_GT3_QC_TBNAME where name_zh like '%" + tb + "%'";
+		System.out.println(sql);
+		return getYYPro().findFirst(sql);
 	}
 }

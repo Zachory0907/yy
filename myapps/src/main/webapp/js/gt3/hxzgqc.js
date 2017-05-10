@@ -11,6 +11,7 @@ var app = angular.module('app', []).controller('hxzgqcController',
 			$scope.fields = [];
 			$scope.ddls = {};
 			$scope.advance_search = "";
+			$scope.lastShowType = "";
 			
 			$scope.goAdSearch = function () {
 				var url = "./adSearch";
@@ -58,6 +59,7 @@ var app = angular.module('app', []).controller('hxzgqcController',
 				var tb = v.tb.NAME_EN;
 				$http.get("./getField?tb=" + tb).then(function (data) {
 					$scope.fields = data.data;
+					$scope.lastShowType = $scope.showType;
 					$scope.showType = "fields";
 				}).catch(function(){
 					alert("网络错误！");
@@ -67,7 +69,6 @@ var app = angular.module('app', []).controller('hxzgqcController',
 			$scope.getDDL = function(v) {
 				var tb = v.tb.NAME_EN;
 				$http.get("./getDDL?tb=" + tb).then(function (data) {
-					debugger;
 					$scope.ddls = data.data.ddl;
 					$scope.showType = "ddls";
 				}).catch(function(){

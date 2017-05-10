@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.jfinal.aop.Before;
 import com.jfinal.ext.route.ControllerBind;
+import com.jfinal.plugin.activerecord.Record;
 import com.jfinal.upload.UploadFile;
 
 import vip.zgt.app.base.BaseController;
@@ -101,6 +102,18 @@ public class Gt3Controller extends BaseController {
 	public void getDDLs() throws Exception {
 		Gt3.getDDLs();
 		renderok();
+	}
+	
+	@Before({AuthInceptor.class})
+	@AuthAnnotation({"YY"})
+	public void getTableMx() {
+		String tb = getPara("tb");
+		Record rec = Gt3.getTableMx(tb);
+		if (rec == null) {
+			rendererror();
+		} else {
+			renderJson(rec);
+		}
 	}
 	
 }

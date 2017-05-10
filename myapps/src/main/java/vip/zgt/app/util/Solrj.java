@@ -9,7 +9,6 @@ import java.util.Map;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.response.QueryResponse;
-import org.apache.solr.client.solrj.response.UpdateResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
 import org.apache.solr.common.SolrInputDocument;
@@ -17,6 +16,8 @@ import org.apache.solr.common.SolrInputDocument;
 import vip.zgt.app.core.plugin.SolrPro;
 
 public class Solrj {
+
+	public static final int SOLR_MAX_COMMIT_SIZE = 1000;
 
 	/**
 	 * 查询简单索引
@@ -43,20 +44,39 @@ public class Solrj {
 		return null;
 	}
 
-	public static void addDoc(Map<String, Object> map) {
+	private static int addCnt = 0;
+
+	public static void addDoc(Map<String, Object> map, boolean mustCommit) {
 		try {
+			addCnt++;
 			SolrInputDocument document = new SolrInputDocument();
 			document = SolrPro.addFileds(map, document);
 			SolrPro.httpSolrClient.add(document);
-			UpdateResponse ur = SolrPro.httpSolrClient.commit();
-			System.out.println(ur);
+			if (addCnt % SOLR_MAX_COMMIT_SIZE == 0 || mustCommit){
+				System.out.println("commit -->" + addCnt);
+				SolrPro.httpSolrClient.commit();
+			}
 		} catch (SolrServerException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
+	public static void addDoc(Map<String, Object> map) {
+		addDoc(map, false);
+	}
+
+	public static void commit() {
+		try {
+			SolrPro.httpSolrClient.commit();
+		} catch (SolrServerException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public static void insertAndUpdateIndex() throws Exception {
 		SolrInputDocument doc = new SolrInputDocument();
 		doc.addField("id", "c003");
@@ -89,21 +109,21 @@ public class Solrj {
 			// 设定查询字段 *:*
 			query.setQuery(queryStr);
 			// 指定返回结果字段
-//			query.setIncludeScore(true);
+			// query.setIncludeScore(true);
 			// query.set("fl","id,name");
 			// 覆盖schema.xml的defaultOperator（有空格时用"AND"还是用"OR"操作逻辑），一般默认指定。必须大写
-//			query.set("q.op", "AND");
+			// query.set("q.op", "AND");
 			// 设置过滤条件
 			// 如果设置多个过滤条件的话，需要使用query.addFilterQuery(fq)
-//			query.setFilterQueries("xxx:[1 TO 10]");
+			// query.setFilterQueries("xxx:[1 TO 10]");
 			// 设置排序
-//			query.setSort("xxx", ORDER.asc);
+			// query.setSort("xxx", ORDER.asc);
 			// 分页开始条数
-			query.setStart((start-1)*rows);
+			query.setStart((start - 1) * rows);
 			// 设定返回记录数，默认为10条
 			query.setRows(rows);
 			// 设置显示的Field的域集合
-//			query.setFields("id");
+			// query.setFields("id");
 			// 设定对查询结果是否高亮
 			query.setHighlight(true);
 			// 设定高亮字段前置标签
@@ -113,13 +133,12 @@ public class Solrj {
 			// 设定高亮字段
 			query.addHighlightField("yy_gt3_tbname_zh");
 			query.addHighlightField("yy_gt3_field_zh");
-			query.addHighlightField("yy_gt3_user");
 			// 设定拼写检查
-//			query.setRequestHandler("/spell");
+			// query.setRequestHandler("/spell");
 			QueryResponse response = SolrPro.httpSolrClient.query(query);
 			SolrDocumentList list = response.getResults();
-			long totalRow = list.getNumFound(); //总条数
-			int totalPage = (int) (totalRow / rows); //总页数
+			long totalRow = list.getNumFound(); // 总条数
+			int totalPage = (int) (totalRow / rows); // 总页数
 			if (totalRow % rows > 0)
 				totalPage++;
 			List<Map<String, Object>> results = new ArrayList<Map<String, Object>>();
@@ -135,38 +154,40 @@ public class Solrj {
 				Map<String, List<String>> ls = highlighting.get(doc.get("id"));
 				// 表中文名称
 				List<String> yy_gt3_tbname_zh = ls.get("yy_gt3_tbname_zh");
-				if (yy_gt3_tbname_zh != null){
-					sb.append("表中文名称：").append(yy_gt3_tbname_zh.get(0)).append(";");
+				if (yy_gt3_tbname_zh != null) {
+					sb.append("表中文名称：").append(yy_gt3_tbname_zh.get(0)).append("<br />");
+				} else {
+					sb.append("表中文名称：").append(doc.get("yy_gt3_tbname_zh").toString()).append("<br />");
 				}
 				// 表英文名称
 				List<String> yy_gt3_tbname_en = ls.get("yy_gt3_tbname_en");
-				if (yy_gt3_tbname_en != null){
-					sb.append("表英文名称：").append(yy_gt3_tbname_en.get(0)).append(";");
+				if (yy_gt3_tbname_en != null) {
+					sb.append("表英文名称：").append(yy_gt3_tbname_en.get(0)).append("<br />");
 				}
 				// 表yy_gt3_owner
 				List<String> yy_gt3_owner = ls.get("yy_gt3_owner");
-				if (yy_gt3_owner != null){
-					sb.append("OWNER：").append(yy_gt3_owner.get(0)).append(";");
+				if (yy_gt3_owner != null) {
+					sb.append("OWNER：").append(yy_gt3_owner.get(0)).append("<br />");
 				}
 				// 表yy_gt3_user
 				List<String> yy_gt3_user = ls.get("yy_gt3_user");
-				if (yy_gt3_user != null){
-					sb.append("USER：").append(yy_gt3_user.get(0)).append(";");
+				if (yy_gt3_user != null) {
+					sb.append("USER：").append(yy_gt3_user.get(0)).append("<br />");
 				}
 				// 字段中文名称
 				List<String> yy_gt3_field_zh = ls.get("yy_gt3_field_zh");
-				if (yy_gt3_field_zh != null){
-					sb.append("字段中文名称：").append(yy_gt3_field_zh.get(0)).append(";");
+				if (yy_gt3_field_zh != null) {
+					sb.append("字段中文名称：").append(yy_gt3_field_zh.get(0)).append("<br />");
 				}
 				// 字段英文名称
 				List<String> yy_gt3_field_en = ls.get("yy_gt3_field_en");
-				if (yy_gt3_field_en != null){
-					sb.append("字段文名称：").append(yy_gt3_field_en.get(0)).append(";");
+				if (yy_gt3_field_en != null) {
+					sb.append("字段文名称：").append(yy_gt3_field_en.get(0)).append("<br />");
 				}
 				res.put("content", sb.toString());
 				results.add(res);
 			}
-			
+
 			Map<String, Object> m = new HashMap<String, Object>();
 			m.put("totalRow", totalRow);
 			m.put("totalPage", totalPage);
