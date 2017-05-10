@@ -10,21 +10,21 @@
 <body>
 	<div class="container">
 	<h3>{{msg}}</h3>
-	<button ng-click="impExl =! impExl" ng-show="isAdmin == true">导入</button>
-	<button ng-click="getTable('ywbmc')">查询业务表清册</button>
-	<button ng-click="getTable('dmbmc')">查询代码参数权限表名称清册</button>
+	<button type="button" class="btn btn-warning" ng-click="impExl =! impExl" ng-show="isAdmin == true">导入</button>
+	<button type="button" class="btn btn-success" ng-click="getTable('ywbmc')">查询业务表清册</button>
+	<button type="button" class="btn btn-success" ng-click="getTable('dmbmc')">查询代码参数权限表名称清册</button>
 	<br>
 	<div class="row">
 		<div class="col-lg-6">
 	    	<div class="input-group">
 	      		<input type="text" class="form-control" placeholder="模糊查询" ng-model="advance_search">
-	      		<span class="input-group-btn"><button class="btn btn-default" type="button" ng-click="goAdSearch()">搜索</button></span>
+	      		<span class="input-group-btn"><button class="btn btn-info" type="button" ng-click="goAdSearch()">搜索</button></span>
 	    	</div>
 	  	</div>
 	</div>
 	
 	<div ng-show="showType == 'dmbmc'">
-		<table>
+		<table class="table table-hover">
 			<tr>
 				<th>序号</th>
 				<th>OWNER</th>
@@ -54,7 +54,7 @@
 	</div>
 	
 	<div ng-show="showType == 'ywbmc'">
-		<table>
+		<table class="table table-hover">
 			<tr>
 				<th>序号</th>
 				<th>OWNER</th>
@@ -85,7 +85,7 @@
 		<a href="javascript:;" ng-click="pageChange('ywbmc', 'next')" ng-show="ywbmcTable.lastPage!=true">下一页</a>
 	</div>
 	<div ng-show="showType == 'fields'">
-		<table>
+		<table class="table table-hover table-bordered">
 			<tr>
 				<th>序号</th>
 				<th>字段名称</th>
@@ -105,7 +105,7 @@
 				<td>{{tb.IS_NULL}}</td>	
 			</tr>
 		</table>
-		<button ng-click="showType = lastShowType">返回</button>
+		<button class="btn btn-info" type="button" ng-click="showType = lastShowType">返回</button>
 	</div>
 	<div ng-show="showType == 'ddls'">
 		DDL:
@@ -136,7 +136,7 @@
 			</tr>
 			<tr>
 				<td>
-					<button ng-click="importExcel()">导入</button>
+					<button ng-click="importExcel()" class="btn btn-danger" type="button" >导入</button>
 					<button ng-click="impExl =! impExl">取消</button>
 				</td>
 			</tr>

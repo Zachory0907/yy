@@ -3,7 +3,7 @@ var app = angular.module('app', []).controller('hxzgAdsearchController',
 			$scope.msg = "高级搜索";
 			$scope.searchMsg = "";
 			$scope.content = "";
-			$scope.results = {"pageNumber":1, "pageSize":50, "list":[], "totalPage":1, "firstPage":true, "lastPage":true};
+			$scope.results = {"pageNumber":1, "pageSize":20, "list":[], "totalPage":1, "firstPage":true, "lastPage":true};
 			$scope.showMx = 0;
 			$scope.tableMx = {};
 			
@@ -39,7 +39,7 @@ var app = angular.module('app', []).controller('hxzgAdsearchController',
 					} else {
 						$scope.results.lastPage = true;
 					}
-					var tb = "<table><thead><tr>";
+					var tb = "<table class=\"table table-hover\"><thead><tr>";
 					tb = tb + "<th>序号</th><th>描述</th><th>操作</th></tr><thead><tbody>";
 					for (var i=0, j=$scope.results.list.length; i<j; i++) {
 						var ord = (i+1) + ($scope.results.pageNumber-1) * $scope.results.pageSize;
