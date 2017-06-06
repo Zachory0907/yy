@@ -29,7 +29,7 @@ public class GetDDL extends BaseBiz{
 			String fullSql = rec.getStr("FULLSQL");
 			createSql = utilCreate(fullSql);
 		} catch (Exception e) {
-			createSql = null;
+			createSql = e.getMessage();
 		}
 		return createSql;
 	}

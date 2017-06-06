@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-cn" ng-app="app" ng-controller="ddlController">
+<title>获取DDL</title>
+<meta charset="UTF-8">
+#include("/WEB-INF/pages/tpl/header.vm")
+#include("/WEB-INF/pages/tpl/navbar.vm")
+<script src="../js/tools/getDDL.js"></script>
+<script src="../js/ext/queue.js"></script>
+</head>
+<body>
+	<div class="container">
+		<h3>{{msg}}</h3>
+		<br>
+		<table class="table table-hover">
+			<tr>
+				<td>表名</td>
+				<td><input type="text" class="form-control" placeholder="tablename" ng-model="table.tablename"></td>	
+			</tr>
+			<tr>
+				<td>数据库用户</td>
+				<td><input type="text" class="form-control" placeholder="user" ng-model="table.user"></td>
+			</tr>
+			<tr>
+				<td>DDL</td>
+				<td>{{table.ddl}}</td>
+			</tr>
+		</table>
+		<button type="button" class="btn" ng-click="searchDDL()">查询DDL</button>
+	</div>
+</body>
+</html>
