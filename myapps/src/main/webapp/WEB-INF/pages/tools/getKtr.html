@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="zh-cn" ng-app="app" ng-controller="ddlController">
+<html lang="zh-cn" ng-app="app" ng-controller="ktrController">
 <title>获取DDL</title>
 <meta charset="UTF-8">
 #include("/WEB-INF/pages/tpl/header.vm")
 #include("/WEB-INF/pages/tpl/navbar.vm")
-<script src="../js/tools/getDDL.js"></script>
+<script src="../js/tools/getKtr.js"></script>
 <script src="../js/ext/queue.js"></script>
 </head>
 <body>
@@ -17,23 +17,38 @@
 				<td><input type="text" class="form-control" placeholder="tablename" ng-model="table.tablename"></td>	
 			</tr>
 			<tr>
-				<td width="100px">数据库用户</td>
-				<td><input type="text" class="form-control" placeholder="user" ng-model="table.user"></td>
-			</tr>
-			<tr>
-				<td><button type="button" class="btn" ng-click="searchDDL()">查询DDL</button></td>
+				<td>
+					<button type="button" class="btn" ng-click="searchKtr()">生成Ktr</button>
+				</td>
 				<td></td>
 			</tr>
 		</table>
-		<div ng-show="table.ddl != ''">
-			<pre id="content">{{table.ddl}}</pre>
+		<div ng-show="table.status == ok">
+			<button type="button" class="btn" ng-click="exportKtr()">导出</button> 表属性：
+			<table class="table table-hover table-bordered">
+				<tr>
+					<th>序号</th>
+					<th>字段名称</th>
+					<th>字段中文名称</th>
+					<th>数据类型</th>
+				</tr>
+				<tr ng-repeat="tb in table.fields">
+					<td>{{$index + 1}}</td>
+					<td>{{tb.FIELD_EN}}</td>	
+					<td>{{tb.FIELD_ZH}}</td>	
+					<td>{{tb.FIELD_TYPE}}</td>	
+				</tr>
+			</table>
+		</div>
+		<div>
+			<pre>{{table.ktr}}</pre>
 		</div>
 		<button type="button" class="btn btn-warning" ng-click="impExl =! impExl">批量生成</button>
 		<div ng-show="impExl == true">
 			<table>
 				<tr>
 					<td>
-						<form method="post" enctype="multipart/form-data" id="submitForm" action="./postExcel">
+						<form method="post" enctype="multipart/form-data" id="submitForm" action="./postKtrExcel">
 							<table>
 								<tr>
 									<td>Excel：</td>

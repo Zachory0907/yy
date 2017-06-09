@@ -15,6 +15,8 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  * 通过POI方式操作Excel文件 往已存在的excel里面读、写内容
@@ -130,8 +132,8 @@ public class ExecutExcel {
 		File file = new File(srcFile);
 		try {
 			InputStream inputStream = new FileInputStream(file);
-			HSSFWorkbook xssfWorkbook = new HSSFWorkbook(inputStream);
-			HSSFSheet sheet = xssfWorkbook.getSheetAt(sheetNum); // 拿到第sheetNum个sheet
+			XSSFWorkbook xssfWorkbook = new XSSFWorkbook(inputStream);
+			XSSFSheet sheet = xssfWorkbook.getSheetAt(sheetNum); // 拿到第sheetNum个sheet
 			List<List<Map<String, Object>>> results = new ArrayList<List<Map<String, Object>>>();
 			for (Row row : sheet) {
 				List<Map<String, Object>> content = new ArrayList<Map<String, Object>>();
@@ -164,7 +166,7 @@ public class ExecutExcel {
 						}
 						String key = null;
 						try {
-							key = headList[(hssfCell.getColumnIndex() - rowStart)];
+							key = headList[(hssfCell.getColumnIndex() - colStart)];
 						} catch (Exception e) {
 							key = String.valueOf(hssfCell.getColumnIndex());
 						}

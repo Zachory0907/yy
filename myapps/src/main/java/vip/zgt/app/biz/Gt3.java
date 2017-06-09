@@ -153,4 +153,14 @@ public class Gt3 extends BaseBiz {
 		System.out.println(sql);
 		return getYYPro().findFirst(sql);
 	}
+
+	public static List<Record> searchTableMxByTablename(String tablename) {
+		String sql = "select * from YY_GT3_QC_TBFIELD WHERE NAME_EN = ?";
+		return getYYPro().find(sql, tablename);
+	}
+	
+	public static List<Record> searchTableByTablename(String tablename) {
+		String sql = "select * from YY_GT3_QC_TBNAME WHERE NAME_EN = ?";
+		return getYYPro().find(sql, tablename);
+	}
 }
