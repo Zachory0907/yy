@@ -12,6 +12,22 @@ var app = angular.module('app', []).controller('hxzgqcController',
 			$scope.ddls = {};
 			$scope.advance_search = "";
 			$scope.lastShowType = "";
+			$scope.exact = {"type":"", "value":"", "bmcrec":[], "bzdrec":[]};
+			
+			$scope.exactSearch = function () {
+				$http.get("./getTableExact?type=" + $scope.exact.type + "&value=" + $scope.exact.value).then(function (data) {
+					$scope.lastShowType = $scope.showType;
+					if ($scope.exact.type == "bmc") {
+						$scope.exact.bmcrec = data.data;
+						$scope.showType = "exactbmc";
+					} else if ($scope.exact.type == "bzd") {
+						$scope.exact.bzdrec = data.data;
+						$scope.showType = "exactbzd";
+					}
+				}).catch(function(){
+					alert("网络错误！");
+				});
+			};
 			
 			$scope.goAdSearch = function () {
 				var url = "./adSearch";
@@ -41,6 +57,7 @@ var app = angular.module('app', []).controller('hxzgqcController',
 				$http.get("./getTable?v=" + v + "&p=" + tb.pageNumber + "&l=" + tb.pageSize).then(function (data) {
 					$scope[v+"Table"] = data.data;
 					$scope.showType = v;
+					$scope.lastShowType = $scope.showType;
 				}).catch(function(){
 					alert("网络错误！");
 				});

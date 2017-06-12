@@ -116,4 +116,12 @@ public class Gt3Controller extends BaseController {
 		}
 	}
 	
+	@Before({AuthInceptor.class})
+	@AuthAnnotation({"YY"})
+	public void getTableExact() {
+		String type = getPara("type");
+		String value = getPara("value");
+		renderJson(Gt3.getTableExact(type, value));
+	}
+	
 }

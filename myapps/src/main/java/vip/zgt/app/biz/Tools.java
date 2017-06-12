@@ -21,16 +21,11 @@ public class Tools extends BaseBiz{
 		StringBuffer sb = new StringBuffer();
 		for (Record r : res) {
 			String field = r.getStr("FIELD_EN");
-			if (field.equals("UUID")) {
+			String isPrimaryKey = r.getStr("IS_PRIMARY");
+			if (isPrimaryKey.indexOf("主键") >= 0) {
 				sb.append("<key>").append("\r\n");
-				sb.append("<name>UUID</name>").append("\r\n");
-				sb.append("<field>UUID</field>").append("\r\n");
-				sb.append("<condition>=</condition>").append("\r\n");
-				sb.append("</key>").append("\r\n");
-			} else if (field.equals("XH")) {
-				sb.append("<key>").append("\r\n");
-				sb.append("<name>XH</name>").append("\r\n");
-				sb.append("<field>XH</field>").append("\r\n");
+				sb.append("<name>").append(field).append("</name>").append("\r\n");
+				sb.append("<field>").append(field).append("</field>").append("\r\n");
 				sb.append("<condition>=</condition>").append("\r\n");
 				sb.append("</key>").append("\r\n");
 			} else {

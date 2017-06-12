@@ -57,7 +57,7 @@ public class Utils {
 	}
 	
 	public static String getAttachmentDir(String type) {
-		String dir = ROOT + "/" + com.jfinal.core.Const.DEFAULT_BASE_DOWNLOAD_PATH;
+		String dir = ROOT + File.separator + com.jfinal.core.Const.DEFAULT_BASE_DOWNLOAD_PATH;
 		Properties sysInfo = null;
 		try {
 			sysInfo = getProperties(SYSINFO_PROPERTIES);
@@ -67,7 +67,7 @@ public class Utils {
 		if (sysInfo != null && (sysInfo.get("attach") != null)) {
 			dir = sysInfo.getProperty("attach");
 		}
-		dir = dir + "/" + type;
+		dir = dir + File.separator + type;
 		File _dir = new File(dir);
 		if (!_dir.exists()) {
 			_dir.mkdirs();

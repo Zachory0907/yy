@@ -18,9 +18,62 @@
 		<div class="col-lg-6">
 	    	<div class="input-group">
 	      		<input type="text" class="form-control" placeholder="模糊查询" ng-model="advance_search">
-	      		<span class="input-group-btn"><button class="btn btn-info" type="button" ng-click="goAdSearch()">搜索</button></span>
+	      		<span class="input-group-btn"><button class="btn btn-info" type="button" ng-click="goAdSearch()">模糊搜索</button></span>
 	    	</div>
 	  	</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-lg-6">
+	    	<div class="input-group">
+	      		<input type="text" class="form-control" placeholder="查询表英文名称" ng-model="exact.value">
+	      		<span class="input-group-btn"><button class="btn btn-info" type="button" ng-click="exactSearch()">精确查找</button></span>
+	      		<input type="radio" name="exactType" value="bmc" ng-model="exact.type"> 表名称
+	      		<input type="radio" name="exactType" value="bzd" ng-model="exact.type"> 表字段
+	    	</div>
+	  	</div>
+	</div>
+	
+	<div ng-show="showType == 'exactbzd'">
+		<table class="table table-hover">
+			<tr>
+				<th>序号</th>
+				<th>表中文名称</th>
+				<th>表英文名称</th>
+				<th>字段中文名称</th>
+				<th>字段英文名称</th>
+			</tr>
+			<tr ng-repeat="tb in exact.bzdrec">
+				<td>{{$index + 1}}</td>
+				<td><a href="javascript:;" ng-click="getField(this)">{{tb.NAME_EN}}</a></td>	
+				<td>{{tb.NAME_ZH}}</td>	
+				<td>{{tb.FIELD_EN}}</td>
+				<td>{{tb.FIELD_ZH}}</td>	
+			</tr>
+		</table>
+		<button class="btn btn-info" type="button" ng-click="showType = lastShowType">返回</button>
+	</div>
+	
+	<div ng-show="showType == 'exactbmc'">
+		<table class="table table-hover">
+			<tr>
+				<th>序号</th>
+				<th>OWNER</th>
+				<th>用户</th>
+				<th>物理表名称</th>
+				<th>物理表中文名称</th>
+				<th>包含字段总数</th>
+			</tr>
+			<tr ng-repeat="tb in exact.bmcrec">
+				<td>{{$index + 1}}</td>	
+				<td>{{tb.OWNER}}</td>	
+				<td>{{tb.USER}}</td>	
+				<td>{{tb.NAME_EN}}</td>
+				<td>{{tb.NAME_ZH}}</td>	
+				<td><a href="javascript:;" ng-click="getField(this)">{{tb.FIELDS}}</a></td>	
+			</tr>
+		</table>
+		<button class="btn btn-info" type="button" ng-click="showType = lastShowType">返回</button>
 	</div>
 	
 	<div ng-show="showType == 'dmbmc'">

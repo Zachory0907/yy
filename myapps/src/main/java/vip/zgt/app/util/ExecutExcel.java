@@ -130,10 +130,83 @@ public class ExecutExcel {
 	public static List<List<Map<String, Object>>> readFromSingleExcel(String srcFile, int sheetNum, int rowStart,
 			int colStart, String[] headList) {
 		File file = new File(srcFile);
+		String filenane = file.getName();
+		if (filenane.indexOf("xlsx") > 0) {
+			return readFromSingleExcelXlsx(srcFile, sheetNum, rowStart, colStart, headList);
+		} else {
+			return readFromSingleExcelXls(srcFile, sheetNum, rowStart, colStart, headList);
+		}
+	}
+
+	public static List<List<Map<String, Object>>> readFromSingleExcelXlsx(String srcFile, int sheetNum, int rowStart,
+			int colStart, String[] headList) {
+		File file = new File(srcFile);
 		try {
 			InputStream inputStream = new FileInputStream(file);
 			XSSFWorkbook xssfWorkbook = new XSSFWorkbook(inputStream);
 			XSSFSheet sheet = xssfWorkbook.getSheetAt(sheetNum); // 拿到第sheetNum个sheet
+			List<List<Map<String, Object>>> results = new ArrayList<List<Map<String, Object>>>();
+			for (Row row : sheet) {
+				List<Map<String, Object>> content = new ArrayList<Map<String, Object>>();
+				if (row.getRowNum() < rowStart) {
+					continue;
+				}
+				for (Cell hssfCell : row) {
+					if (hssfCell.getColumnIndex() < colStart) {
+						continue;
+					}
+					Object cont = null;
+					Map<String, Object> map = new HashMap<String, Object>();
+					if (headList == null || headList.length == 0) {
+						// 说明没有HeadList
+						if (hssfCell.getCellType() == Cell.CELL_TYPE_BOOLEAN) {
+							cont = hssfCell.getBooleanCellValue();
+						} else if (hssfCell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
+							cont = hssfCell.getNumericCellValue();
+						} else if (hssfCell.getCellType() == Cell.CELL_TYPE_STRING) {
+							cont = hssfCell.getStringCellValue();
+						}
+						map.put(String.valueOf(hssfCell.getColumnIndex()), cont);
+					} else {
+						if (hssfCell.getCellType() == Cell.CELL_TYPE_BOOLEAN) {
+							cont = hssfCell.getBooleanCellValue();
+						} else if (hssfCell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
+							cont = hssfCell.getNumericCellValue();
+						} else if (hssfCell.getCellType() == Cell.CELL_TYPE_STRING) {
+							cont = hssfCell.getStringCellValue();
+						}
+						String key = null;
+						try {
+							key = headList[(hssfCell.getColumnIndex() - colStart)];
+						} catch (Exception e) {
+							key = String.valueOf(hssfCell.getColumnIndex());
+						}
+						if (key == null) {
+							key = String.valueOf(hssfCell.getColumnIndex());
+						}
+						map.put(key, cont);
+					}
+					content.add(map);
+				}
+				results.add(content);
+			}
+			return results;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public static List<List<Map<String, Object>>> readFromSingleExcelXls(String srcFile, int sheetNum, int rowStart,
+			int colStart, String[] headList) {
+		File file = new File(srcFile);
+		try {
+			InputStream inputStream = new FileInputStream(file);
+			HSSFWorkbook xssfWorkbook = new HSSFWorkbook(inputStream);
+			HSSFSheet sheet = xssfWorkbook.getSheetAt(sheetNum); // 拿到第sheetNum个sheet
 			List<List<Map<String, Object>>> results = new ArrayList<List<Map<String, Object>>>();
 			for (Row row : sheet) {
 				List<Map<String, Object>> content = new ArrayList<Map<String, Object>>();

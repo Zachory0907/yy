@@ -163,4 +163,14 @@ public class Gt3 extends BaseBiz {
 		String sql = "select * from YY_GT3_QC_TBNAME WHERE NAME_EN = ?";
 		return getYYPro().find(sql, tablename);
 	}
+
+	public static List<Record> getTableExact(String type, String value) {
+		String sql = "";
+		if ("bmc".equals(type)) {
+			sql = "SELECT * FROM YY_GT3_QC_TBNAME WHERE NAME_EN = ?";
+		} else if ("bzd".equals(type)) {
+			sql = "SELECT * FROM YY_GT3_QC_TBFIELD WHERE FIELD_EN = ?";
+		}
+		return getYYPro().find(sql, value);
+	}
 }
